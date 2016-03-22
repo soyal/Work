@@ -1,0 +1,24 @@
+body{
+    font-family: "Helvetica Neue",Helvetica,Arial,Microsoft YaHei;
+}
+
+/*通用*/
+.text-center{
+    text-align: center;
+}
+.btn-full{
+    width: 100%;
+}
+
+/*登陆页面*/
+.login-h1{
+    margin-bottom: 50px;
+}
+.login-btn{
+    letter-spacing: 16px;
+}
+.login-container{
+    margin-top: 100px;
+    padding-bottom: 20px;
+    border: 2px solid rgb(51,122,183);
+}
