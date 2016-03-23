@@ -12,6 +12,7 @@ body{
     border-left-color: rgb(51,122,183);
     border-top-color: rgb(51,122,183);
     border-right-color: rgb(51,122,183);
+    color: rgb(51,122,183);
 }
 .nav-tabs>li>a:hover{
     background-color:  rgb(51,122,183);
@@ -24,6 +25,7 @@ body{
 .btn-full{
     width: 100%;
 }
+
 
 /*登陆页面*/
 .login-h1{
@@ -41,4 +43,9 @@ body{
 /*个人信息-密码修改*/
 .update-password-form{
     margin-top: 50px;
+}
+
+/*管理员-用户信息上传*/
+.admin-form-upload{
+    margin-top: 20px;
 }

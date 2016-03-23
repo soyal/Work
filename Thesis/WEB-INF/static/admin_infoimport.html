@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人信息</title>
+    <link rel="stylesheet" href="../../src/framework/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../src/framework/css/fileinput.min.css">
+    <link rel="stylesheet" href="../../src/css/cover.css">
+</head>
+<body>
+    <div class="container">
+        <!--置顶栏-->
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                        data-target="#example-navbar-collapse">
+                    <span class="sr-only">切换导航</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">论文送审系统</a>
+            </div>
+            <div class="col-xs-offset-10">
+                <ul class="nav navbar-nav">
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span>张三</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-log-out"></span>注销</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!--内容-->
+        <div class="row">
+            <!--导航-->
+            <div class="col-xs-2">
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a href="admin_selfinfo.html">个人信息</a></li>
+                    <li class="active"><a href="admin_infoimport.html">信息导入</a></li>
+                    <li><a href="admin_infomanage">信息管理</a></li>
+                    <li><a href="#">关键字维护</a></li>
+                    <li><a href="#">匹配结果</a></li>
+                </ul>
+            </div>
+
+            <!--标签页-->
+            <div class="col-xs-10">
+                <form class="form-horizontal admin-form-upload" role="form" action="#" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="studentinfo" class="col-xs-2 control-label col-xs-offset-1">学生信息</label>
+                        <div class="col-xs-6">
+                            <input type="file" class="file" id="studentinfo">
+                        </div>
+                    </div>
+                </form>
+
+                <form class="form-horizontal admin-form-upload" role="form" action="#" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="teacherinfo" class="col-xs-2 control-label col-xs-offset-1">老师信息</label>
+                        <div class="col-xs-6">
+                            <input type="file" class="file" id="teacherinfo">
+                        </div>
+                    </div>
+                </form>
+
+                <form class="form-horizontal admin-form-upload" role="form" action="#" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="teaminfo" class="col-xs-2 control-label col-xs-offset-1">团队信息</label>
+                        <div class="col-xs-6">
+                            <input type="file" class="file" id="teaminfo">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="../../src/framework/js/jquery-2.2.2.min.js"></script>
+    <script src="../../src/framework/js/bootstrap.min.js"></script>
+    <script src="../../src/framework/js/fileinput.min.js"></script>
+    <script src="../../src/framework/js/fileinput_locale_zh.js"></script>
+</body>
+</html>
