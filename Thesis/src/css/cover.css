@@ -2,6 +2,21 @@ body{
     font-family: "Helvetica Neue",Helvetica,Arial,Microsoft YaHei;
 }
 
+/*覆盖原有的样式*/
+.nav-tabs{
+    border-bottom-color:rgb(51,122,183);
+}
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:hover,
+.nav-tabs>li.active>a:focus{
+    border-left-color: rgb(51,122,183);
+    border-top-color: rgb(51,122,183);
+    border-right-color: rgb(51,122,183);
+}
+.nav-tabs>li>a:hover{
+    background-color:  rgb(51,122,183);
+    color: #ffffff;
+}
 /*通用*/
 .text-center{
     text-align: center;
@@ -21,4 +36,9 @@ body{
     margin-top: 100px;
     padding-bottom: 20px;
     border: 2px solid rgb(51,122,183);
+}
+
+/*个人信息-密码修改*/
+.update-password-form{
+    margin-top: 50px;
 }
