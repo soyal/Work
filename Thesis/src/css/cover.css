@@ -25,7 +25,9 @@ body{
 .btn-full{
     width: 100%;
 }
-
+.padding-top{
+    padding-top: 20px;
+}
 
 /*登陆页面*/
 .login-h1{
