@@ -28,6 +28,10 @@ body{
 .padding-top{
     padding-top: 20px;
 }
+.table-vertical-align>tbody>tr>td{
+    vertical-align: middle;
+}
+
 
 /*登陆页面*/
 .login-h1{
@@ -50,4 +54,9 @@ body{
 /*管理员-用户信息上传*/
 .admin-form-upload{
     margin-top: 20px;
+}
+
+/*查看详情*/
+.result-detail{
+    cursor: pointer;
 }

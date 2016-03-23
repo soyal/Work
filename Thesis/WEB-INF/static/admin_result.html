@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>送审匹配</title>
+    <link rel="stylesheet" href="../../src/framework/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../src/css/cover.css">
+</head>
+<body>
+<div class="container">
+    <!--置顶栏-->
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#example-navbar-collapse">
+                <span class="sr-only">切换导航</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">论文送审系统</a>
+        </div>
+        <div class="col-xs-offset-10">
+            <ul class="nav navbar-nav">
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span>张三</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-log-out"></span>注销</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!--内容-->
+    <div class="row">
+        <!--导航-->
+        <div class="col-xs-2">
+            <ul class="nav nav-pills nav-stacked">
+                <li><a href="admin_selfinfo.html">个人信息</a></li>
+                <li><a href="admin_infoimport.html">信息导入</a></li>
+                <li><a href="admin_infomanage.html">信息管理</a></li>
+                <li><a href="admin_keyword.html">关键字维护</a></li>
+                <li  class="active"><a href="admin_result.html">送审匹配</a></li>
+            </ul>
+        </div>
+
+        <!--标签页-->
+        <div class="col-xs-10 padding-top">
+            <div class="row">
+                <div class="col-xs-12">
+                    <button type="button" class="btn btn-primary" id="J-startmatch">开始匹配</button>
+                    <button type="button" class="btn btn-default" id="J-export">导出结果</button>
+                </div>
+            </div>
+
+            <!--匹配结果显示-->
+            <table class="table table-vertical-align">
+                <thead>
+                <tr>
+                    <th>学号</th>
+                    <th>姓名</th>
+                    <th>论文题目</th>
+                    <th>匹配老师</th>
+                    <th>工号</th>
+                    <th>工作单位</th>
+                    <th>匹配度</th>
+                    <th>查看详情</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2011010000</td>
+                        <td>王五</td>
+                        <td>基于测试的论文题目</td>
+                        <td>
+                            <p>老师1</p>
+                            <p>老师2</p>
+                        </td>
+                        <td>
+                            <p>123</p>
+                            <p>321</p>
+                        </td>
+                        <td>
+                            <p>重邮</p>
+                            <p>北邮</p>
+                        </td>
+                        <td>
+                            <p>89</p>
+                            <p>98</p>
+                        </td>
+                        <td><span class="glyphicon glyphicon-zoom-in result-detail"
+                                data-toggle="modal" data-target="#detail"></span></td>
+                    </tr>
+                    <tr>
+                        <td>2011010000</td>
+                        <td>王五</td>
+                        <td>基于测试的论文题目</td>
+                        <td>
+                            <p>老师1</p>
+                            <p>老师2</p>
+                        </td>
+                        <td>
+                            <p>123</p>
+                            <p>321</p>
+                        </td>
+                        <td>
+                            <p>重邮</p>
+                            <p>北邮</p>
+                        </td>
+                        <td>
+                            <p>89</p>
+                            <p>98</p>
+                        </td>
+                        <td><span class="glyphicon glyphicon-zoom-in result-detail"
+                                  data-toggle="modal" data-target="#detail"></span></td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <!-- 详细信息浮动框 -->
+            <div class="modal fade" id="detail" tabindex="-1" role="dialog"
+                 aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close"
+                                    data-dismiss="modal" aria-hidden="true">
+                                &times;
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                匹配详情
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">学生信息</h3>
+                                </div>
+                                <div class="panel-body">
+                                    这是一个基本的面板
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default"
+                                    data-dismiss="modal">关闭
+                            </button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
+            </div>
+
+            <!--分页-->
+            <div class="row">
+                <div class="col-xs-6 col-xs-offset-3">
+                    <ul class="pagination">
+                        <li class="disabled"><a href="#">&laquo;</a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">&raquo;</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!--导出结果-->
+        </div>
+    </div>
+</div>
+
+<script src="../../src/framework/js/jquery-2.2.2.min.js"></script>
+<script src="../../src/framework/js/bootstrap.min.js"></script>
+<script>
+    //开始匹配
+    $("#J-startmatch").click(function(e){
+        //TODO
+        console.log("开始匹配")
+    });
+
+    $("#J-export").click(function(e){
+        //TODO
+        console.log("导出结果");
+    });
+</script>
+</body>
+</html>

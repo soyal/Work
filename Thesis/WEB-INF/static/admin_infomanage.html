@@ -37,7 +37,7 @@
                     <li><a href="admin_infoimport.html">信息导入</a></li>
                     <li class="active"><a href="admin_infomanage.html">信息管理</a></li>
                     <li><a href="admin_keyword.html">关键字维护</a></li>
-                    <li><a href="#">匹配结果</a></li>
+                    <li><a href="admin_result.html">送审匹配</a></li>
                 </ul>
             </div>
 
@@ -59,9 +59,77 @@
                         <!--添加按钮-->
                         <div class="row">
                             <div class="col-xs-12">
-                                <button class="btn btn-primary" id="J-student-add" type="button">添加</button>
+                                <button class="btn btn-primary" id="J-student-add" type="button"
+                                        data-toggle="modal"  data-target="#addstudent">添加</button>
+                                <!-- 学生添加信息 -->
+                                <div class="modal fade" id="addstudent" tabindex="-1" role="dialog"
+                                     aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close"
+                                                        data-dismiss="modal" aria-hidden="true">
+                                                    &times;
+                                                </button>
+                                                <h4 class="modal-title" id="myModalLabel">
+                                                    添加学生信息
+                                                </h4>
+                                            </div>
+                                            <!--添加学生的表单-->
+                                            <form class="form-horizontal" role="form" action="#" method="post">
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                            <div class="form-group">
+                                                                <label for="username_student" class="col-xs-2 control-label col-xs-offset-1">账号</label>
+                                                                <div class="col-xs-6">
+                                                                    <input type="text" class="form-control" id="username_student"
+                                                                           placeholder="账号">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="password_student" class="col-xs-2 control-label col-xs-offset-1">密码</label>
+                                                                <div class="col-xs-6">
+                                                                    <input type="password" class="form-control" id="password_student"
+                                                                           placeholder="密码">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="studentname" class="col-xs-2 control-label col-xs-offset-1">姓名</label>
+                                                                <div class="col-xs-6">
+                                                                    <input type="text" class="form-control" id="studentname"
+                                                                           placeholder="用户名">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="studentid" class="col-xs-2 control-label col-xs-offset-1">学号</label>
+                                                                <div class="col-xs-6">
+                                                                    <input type="text" class="form-control" id="studentid" placeholder="学号"/>
+                                                                </div>
+                                                            </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-primary"
+                                                            id="J-add-student-button">
+                                                        提交更改
+                                                    </button>
+                                                    <button type="button" class="btn btn-default"
+                                                            data-dismiss="modal">关闭
+                                                    </button>
+
+                                                </div>
+                                            </form>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal -->
+                                </div>
                             </div>
                         </div>
+
 
                         <!--信息列表-->
                         <table class="table">
@@ -134,7 +202,73 @@
                         <!--添加按钮-->
                         <div class="row">
                             <div class="col-xs-12">
-                                <button class="btn btn-primary" id="J-teacher-add" type="button">添加</button>
+                                <button class="btn btn-primary" id="J-teacher-add" type="button"
+                                        data-toggle="modal"  data-target="#addteacher">添加</button>
+                                <!-- 老师添加信息 -->
+                                <div class="modal fade" id="addteacher" tabindex="-1" role="dialog"
+                                     aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close"
+                                                        data-dismiss="modal" aria-hidden="true">
+                                                    &times;
+                                                </button>
+                                                <h4 class="modal-title">
+                                                    添加老师信息
+                                                </h4>
+                                            </div>
+                                            <!--添加老师的表单-->
+                                            <form class="form-horizontal" role="form" action="#" method="post">
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <label for="username_teacher" class="col-xs-2 control-label col-xs-offset-1">用户名</label>
+                                                            <div class="col-xs-6">
+                                                                <input type="text" class="form-control" id="username_teacher"
+                                                                       placeholder="用户名">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="password_teacher" class="col-xs-2 control-label col-xs-offset-1">密码</label>
+                                                            <div class="col-xs-6">
+                                                                <input type="text" class="form-control" id="password_teacher" placeholder="密码"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="teachername" class="col-xs-2 control-label col-xs-offset-1">姓名</label>
+                                                            <div class="col-xs-6">
+                                                                <input type="text" class="form-control" id="teachername"
+                                                                       placeholder="姓名">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="teacherid" class="col-xs-2 control-label col-xs-offset-1">工号</label>
+                                                            <div class="col-xs-6">
+                                                                <input type="text" class="form-control" id="teacherid" placeholder="工号"/>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-primary"
+                                                            id="J-add-teacher-button">
+                                                        提交更改
+                                                    </button>
+                                                    <button type="button" class="btn btn-default"
+                                                            data-dismiss="modal">关闭
+                                                    </button>
+
+                                                </div>
+                                            </form>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal -->
+                                </div>
                             </div>
                         </div>
 
@@ -202,7 +336,53 @@
                         <!--添加按钮-->
                         <div class="row">
                             <div class="col-xs-12">
-                                <button class="btn btn-primary" id="J-team-add" type="button">添加</button>
+                                <button class="btn btn-primary" id="J-team-add" type="button"
+                                        data-toggle="modal"  data-target="#addteam">添加</button>
+                                <!-- 团队添加信息 -->
+                                <div class="modal fade" id="addteam" tabindex="-1" role="dialog"
+                                     aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close"
+                                                        data-dismiss="modal" aria-hidden="true">
+                                                    &times;
+                                                </button>
+                                                <h4 class="modal-title">
+                                                    添加团队信息
+                                                </h4>
+                                            </div>
+                                            <!--添加团队的表单-->
+                                            <form class="form-horizontal" role="form" action="#" method="post">
+                                                <div class="modal-body">
+                                                    <div class="row">
+
+
+                                                        <div class="form-group">
+                                                            <label for="teamname" class="col-xs-2 control-label col-xs-offset-1">团队名</label>
+                                                            <div class="col-xs-6">
+                                                                <input type="text" class="form-control" id="teamname"
+                                                                       placeholder="团队名">
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-primary"
+                                                            id="J-add-team-button">
+                                                        提交更改
+                                                    </button>
+                                                    <button type="button" class="btn btn-default"
+                                                            data-dismiss="modal">关闭
+                                                    </button>
+
+                                                </div>
+                                            </form>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal -->
+                                </div>
                             </div>
                         </div>
 
