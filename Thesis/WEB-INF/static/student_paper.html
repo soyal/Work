@@ -139,11 +139,9 @@
 </div>
 <!--可在全局范围内移动的列表组，用于展示不可自主填写的信息-->
 <ul class="list-group movepanel" id="J-movepanel">
-   <li class="list-group-item">内容1</li>
-   <li class="list-group-item">内容1</li>
-   <li class="list-group-item">内容1</li>
-   <li class="list-group-item">内容1</li>
+
 </ul>
+
 <script src="../../src/framework/js/jquery-2.2.2.min.js"></script>
 <script src="../../src/framework/js/bootstrap.min.js"></script>
 <script type="text/tpl-tr" id="table-tr" src="tpls/table-tr.tpl"></script>
@@ -209,23 +207,27 @@
    });
 
    var isSwitch = false;//是否为各个input之间的切换
+   var curTarget = null;
    //焦点到input上出现信息框
    $onlyImport.focus(function(e){
       var $this = $(this);
       var offset = $this.offset();
       var height = $this.outerHeight();
+      curTarget = $this;
       $movepanel.css("left",offset.left+"px");
       $movepanel.css("top",offset.top + height + "px");
       $movepanel.show();
       isSwitch = true;
 
       //根据direct1|2,keyword进行不同功能的添加
+
       if($this.hasClass("J-direct1")){ //direct1
          $.getJSON("json/test.json",function(data){
             var $fragment = $(document.createDocumentFragment());//文档碎片
             for(var i= 0,len=data.length;i<len;i++){
-
+               $fragment.append("<li class='list-group-item'>" + data[i] + "</li>");
             }
+            $movepanel.append($fragment);
          });
       }else if($this.hasClass("J-direct2")){
          console.log("dirct2");
@@ -245,7 +247,8 @@
 
    //全局信息框的点击
    $movepanel.delegate("li","click",function(e){
-      console.log($(this).html());
+      curTarget.val($(this).html());
+      $movepanel.html("请稍等···");//清空信息框的数据
    });
 </script>
 </body>

@@ -176,13 +176,7 @@
       $hometeamSubmit.attr("disabled",false);
       $hometeanEdit.attr("disabled",true);
    });
-   $hometeamSubmit.click(function(e){
-      $hometeam.attr("disabled",true);
-      $hometeanEdit.attr("disabled",false);
-      $hometeamSubmit.attr("disabled",false);
-      $hometeamForm.submit();
-      //可以在这里用ajax进行数据的插入
-   });
+
 
    //基础信息
    var $basicinfoForm = $("#J-form-basicinfo");
@@ -194,12 +188,7 @@
       $basicinfoSubmit.attr("disabled",false);
       $basicinfoEdit.attr("disabled",true);
    });
-   $basicinfoSubmit.click(function(e){
-      $basicinfos.attr("disabled",true);
-      $basicinfoSubmit.attr("disabled",true);
-      $basicinfoEdit.attr("disabled",false);
-      $basicinfoForm.submit();
-   });
+
 </script>
 </body>
 </html>
