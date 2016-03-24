@@ -31,7 +31,10 @@ body{
 .table-vertical-align>tbody>tr>td{
     vertical-align: middle;
 }
-
+.height-600{
+    height: 600px;
+    overflow-y: scroll;
+}
 
 /*登陆页面*/
 .login-h1{

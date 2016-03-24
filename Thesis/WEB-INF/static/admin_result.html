@@ -51,7 +51,7 @@
             </div>
 
             <!--匹配结果显示-->
-            <table class="table table-vertical-align">
+            <table class="table table-vertical-align" id="J-result-table">
                 <thead>
                 <tr>
                     <th>学号</th>
@@ -66,7 +66,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>2011010000</td>
+                        <td class="studentid">2011010000</td>
                         <td>王五</td>
                         <td>基于测试的论文题目</td>
                         <td>
@@ -74,8 +74,8 @@
                             <p>老师2</p>
                         </td>
                         <td>
-                            <p>123</p>
-                            <p>321</p>
+                            <p class="teacher1id">123</p>
+                            <p class="teacher2id">321</p>
                         </td>
                         <td>
                             <p>重邮</p>
@@ -89,7 +89,7 @@
                                 data-toggle="modal" data-target="#detail"></span></td>
                     </tr>
                     <tr>
-                        <td>2011010000</td>
+                        <td class="studentid">4343434</td>
                         <td>王五</td>
                         <td>基于测试的论文题目</td>
                         <td>
@@ -97,8 +97,8 @@
                             <p>老师2</p>
                         </td>
                         <td>
-                            <p>123</p>
-                            <p>321</p>
+                            <p class="teacher1id">222</p>
+                            <p class="teacher2id">111</p>
                         </td>
                         <td>
                             <p>重邮</p>
@@ -129,13 +129,150 @@
                                 匹配详情
                             </h4>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body height-600">
+                            <!--学生信息-->
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">学生信息</h3>
                                 </div>
                                 <div class="panel-body">
-                                    这是一个基本的面板
+                                    <!--基础信息-->
+                                    <h3>个人信息</h3>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <th>姓名</th>
+                                            <th>学号</th>
+                                            <th>所属团队</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>王五</td>
+                                                <td>20121211221</td>
+                                                <td>重邮团队</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <!--论文信息-->
+                                    <h3>论文信息</h3>
+                                    <table class="table table-bordered table-vertical-align">
+                                        <thead>
+                                        <th>题目</th>
+                                        <th>类别</th>
+                                        <th>研究方向</th>
+                                        <th>关键字</th>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>基于测试的论文</td>
+                                            <td>理论研究</td>
+                                            <td>
+                                                <p>信息论</p>
+                                                <p>经典信息论</p>
+                                            </td>
+                                            <td>
+                                                关键字1，关键字2，关键字3，关键字4
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!--匹配教师1-->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">匹配教师1</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <!--基础信息-->
+                                    <h3>个人信息</h3>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <th>姓名</th>
+                                        <th>工号</th>
+                                        <th>工作单位</th>
+                                        <th>所属团队</th>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>李四</td>
+                                            <td>20121211221</td>
+                                            <td>重邮</td>
+                                            <td>重邮团队</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <!--研究方向-->
+                                    <h3>研究方向</h3>
+                                    <table class="table table-bordered table-vertical-align">
+                                        <thead>
+                                        <th>研究方向</th>
+                                        <th>关键字</th>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>信息论</td>
+                                            <td>
+                                                关键字1，关键字2，关键字3，关键字4
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>经典信息论</td>
+                                            <td>
+                                                关键字1，关键字2，关键字3，关键字4
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!--匹配教师2-->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">匹配教师1</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <!--基础信息-->
+                                    <h3>个人信息</h3>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <th>姓名</th>
+                                        <th>工号</th>
+                                        <th>工作单位</th>
+                                        <th>所属团队</th>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>李四</td>
+                                            <td>20121211221</td>
+                                            <td>重邮</td>
+                                            <td>重邮团队</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <!--研究方向-->
+                                    <h3>研究方向</h3>
+                                    <table class="table table-bordered table-vertical-align">
+                                        <thead>
+                                        <th>研究方向</th>
+                                        <th>关键字</th>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>信息论</td>
+                                            <td>
+                                                关键字1，关键字2，关键字3，关键字4
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>经典信息论</td>
+                                            <td>
+                                                关键字1，关键字2，关键字3，关键字4
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -180,6 +317,18 @@
     $("#J-export").click(function(e){
         //TODO
         console.log("导出结果");
+    });
+
+    $("#J-result-table").delegate(".result-detail","click",function(e){
+        var $tr = $(this).parents("tr");
+        var studentid = $tr.find(".studentid").html();
+        var teacher1id = $tr.find(".teacher1id").html();
+        var teacher2id = $tr.find(".teacher2id").html();
+//        console.log("studentid",studentid);
+//        console.log("teacher1id",teacher1id);
+//        console.log("teacher2id",teacher2id);
+        //通过studentid,teacher1id,teacher2id获取对应的用户的详细信息
+        //TODO
     });
 </script>
 </body>
