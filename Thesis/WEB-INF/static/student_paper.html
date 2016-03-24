@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>论文信息</title>
+   <link rel="stylesheet" href="../../src/framework/css/bootstrap.min.css">
+   <link rel="stylesheet" href="../../src/css/cover.css">
+</head>
+<body>
+<div class="container">
+   <!--置顶栏-->
+   <nav class="navbar navbar-default" role="navigation">
+      <div class="navbar-header">
+         <button type="button" class="navbar-toggle" data-toggle="collapse"
+                 data-target="#example-navbar-collapse">
+            <span class="sr-only">切换导航</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+         </button>
+         <a class="navbar-brand" href="#">论文送审系统</a>
+      </div>
+      <div class="col-xs-offset-10">
+         <ul class="nav navbar-nav">
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span>学生</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-log-out"></span>注销</a></li>
+         </ul>
+      </div>
+   </nav>
+
+   <!--内容-->
+   <div class="row">
+      <!--导航-->
+      <div class="col-xs-2">
+         <ul class="nav nav-pills nav-stacked">
+            <li><a href="student_selfinfo.html">个人信息</a></li>
+            <li class="active"><a href="student_paper.html">论文信息</a></li>
+         </ul>
+      </div>
+
+      <!--标签页 论文信息-->
+      <div class="col-xs-10 padding-top">
+         <form class="form-horizontal" role="form" action="updatepaper" id="J-form-paper" method="post">
+            <div class="form-group">
+               <label for="papertitle" class="col-xs-2 control-label col-xs-offset-1">论文题目</label>
+               <div class="col-xs-6">
+                  <input type="text" class="form-control operation-item" id="papertitle" value="基于测试的论文题目" disabled/>
+               </div>
+            </div>
+
+            <div class="form-group">
+               <label for="papertype" class="col-xs-2 control-label col-xs-offset-1">论文类别</label>
+               <div class="col-xs-6">
+                  <input type="text" class="form-control operation-item" id="papertype" value="理论研究" disabled/>
+               </div>
+            </div>
+
+            <!--关键字的添加-->
+            <div class="form-group">
+               <label  class="col-xs-2 control-label col-xs-offset-1">关键字</label>
+               <div class="col-xs-8">
+                  <div class="row">
+                     <div class="col-xs-12">
+                        <button type="button" class="btn btn-info operation-item" id="J-keywords-add" disabled>添加</button>
+                        <button type="button" class="btn btn-default operation-item" id="J-keywords-delete" disabled>删除</button>
+                     </div>
+                  </div>
+                  <table class="table table-bordered table-vertical-align margin-top-10">
+                     <tr>
+                        <td class="text-center">
+                           <input type="checkbox" class="operation-item" disabled>
+                        </td>
+                        <td>
+                           <!--1级研究方向-->
+                           <div class="form-group">
+                              <label for="researchdirect1" class="col-xs-3 control-label">1级研究方向</label>
+                              <div class="col-xs-8">
+                                 <input type="text" class="form-control operation-item" id="researchdirect1" value="信息论" disabled/>
+                              </div>
+                           </div>
+                           <!--2级研究方向-->
+                           <div class="form-group">
+                              <label for="researchdirect2" class="col-xs-3 control-label">2级研究方向</label>
+                              <div class="col-xs-8">
+                                 <input type="text" class="form-control operation-item" id="researchdirect2" value="经典信息论" disabled/>
+                              </div>
+                           </div>
+                           <!--关键字-->
+                           <div class="form-group">
+                              <label class="col-xs-3 control-label">关键字</label>
+                              <div class="col-xs-8">
+                                 <div class="row">
+                                    <div class="col-xs-6">
+                                       <input type="text" class="form-control operation-item keyword" disabled>
+                                    </div>
+                                    <div class="col-xs-6">
+                                       <input type="text" class="form-control operation-item keyword" disabled>
+                                    </div>
+                                 </div>
+                                 <div class="row margin-top-10">
+                                    <div class="col-xs-6">
+                                       <input type="text" class="form-control operation-item keyword" disabled>
+                                    </div>
+                                    <div class="col-xs-6">
+                                       <input type="text" class="form-control operation-item keyword" disabled>
+                                    </div>
+                                 </div>
+                                 <div class="row  margin-top-10">
+                                    <div class="col-xs-6">
+                                       <input type="text" class="form-control operation-item keyword" disabled>
+                                    </div>
+                                 </div>
+
+
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+
+                  </table>
+               </div>
+            </div>
+            <hr>
+
+            <!--保存和修改按钮-->
+            <div class="form-group">
+               <div class="col-xs-6 col-xs-offset-3">
+                  <button type="submit" class="btn btn-primary" id="J-paper-update" disabled>确认修改</button>
+                  <button type="button" class="btn btn-default" id="J-paper-edit">编辑</button>
+               </div>
+            </div>
+         </form>
+
+      </div>
+   </div>
+</div>
+
+<script src="../../src/framework/js/jquery-2.2.2.min.js"></script>
+<script src="../../src/framework/js/bootstrap.min.js"></script>
+<script>
+   var $paperform = $("#J-form-paper");
+   var $opItems = $paperform.find(".operation-item");//论文信息的可操作项
+   var $paperEdit = $paperform.find("#J-paper-edit");
+   var $paperSubmit = $paperform.find("#J-paper-update");
+   $paperEdit.click(function(){
+      $opItems.attr("disabled",false);
+      $paperEdit.attr("disabled",true);
+      $paperSubmit.attr("disabled",false);
+   });
+
+   $paperSubmit.click(function(){
+      $opItems.attr("disabled",true);
+      $paperEdit.attr("disabled",true);
+      $paperSubmit.attr("disabled",false);
+      $paperform.submit();
+   })
+</script>
+</body>
+</html>

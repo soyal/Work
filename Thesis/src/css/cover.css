@@ -35,6 +35,13 @@ body{
     height: 600px;
     overflow-y: scroll;
 }
+.vertical-middle{
+    vertical-align: middle;
+    height:100%;
+}
+.margin-top-10{
+    margin-top: 10px;
+}
 
 /*登陆页面*/
 .login-h1{
