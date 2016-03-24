@@ -1,4 +1,1 @@
-[
-  "t1",
-  "t2"
-]
+[{"researchTeamId":1,"TeamName":"通信团队"},{"researchTeamId":2,"TeamName":"网络团队"},{"researchTeamId":3,"TeamName":"人工智能团队"}]
