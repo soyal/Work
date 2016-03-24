@@ -206,10 +206,20 @@
       e.returnValue =false;
    });
 
+
    var isSwitch = false;//是否为各个input之间的切换
-   var curTarget = null;
+   var curTarget = null;//当前的选择目标
+   function insertIntoMovePanel(data){
+      $movepanel.html("");
+      var $fragment = $(document.createDocumentFragment());//文档碎片
+      for(var i= 0,len=data.length;i<len;i++){
+         $fragment.append("<li class='list-group-item'>" + data[i] + "</li>");
+      }
+      $movepanel.append($fragment);
+   }
    //焦点到input上出现信息框
    $onlyImport.focus(function(e){
+      $movepanel.html("请稍等···");
       var $this = $(this);
       var offset = $this.offset();
       var height = $this.outerHeight();
@@ -220,19 +230,25 @@
       isSwitch = true;
 
       //根据direct1|2,keyword进行不同功能的添加
-
+      //第一级研究方向直接从远端获取
       if($this.hasClass("J-direct1")){ //direct1
          $.getJSON("json/test.json",function(data){
-            var $fragment = $(document.createDocumentFragment());//文档碎片
-            for(var i= 0,len=data.length;i<len;i++){
-               $fragment.append("<li class='list-group-item'>" + data[i] + "</li>");
-            }
-            $movepanel.append($fragment);
+            insertIntoMovePanel(data);
          });
+      //第二级研究方向根据第一级研究方向获取
       }else if($this.hasClass("J-direct2")){
-         console.log("dirct2");
+         var direct1 = $direct1.val();
+         if(!direct1) return;
+         $.getJSON("json/"+direct1+".json",{direct1 : direct1},function(data){
+            insertIntoMovePanel(data)
+         });
+      //关键字根据第二级研究方向获取
       }else if($this.hasClass("J-keyword")){
-         console.log("keyword");
+         var direct2 = $direct2.val();
+         if(!direct2) return;
+         $.getJSON("json/"+direct2+".json",{direct2 : direct2},function(data){
+            insertIntoMovePanel(data);
+         })
       }
    });
    //失去焦点，信息框隐藏
@@ -248,7 +264,7 @@
    //全局信息框的点击
    $movepanel.delegate("li","click",function(e){
       curTarget.val($(this).html());
-      $movepanel.html("请稍等···");//清空信息框的数据
+      $movepanel.html("");//清空信息框的数据
    });
 </script>
 </body>
