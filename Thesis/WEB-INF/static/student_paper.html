@@ -65,6 +65,7 @@
                         <button type="button" class="btn btn-default operation-item" id="J-keywords-delete" disabled>删除</button>
                      </div>
                   </div>
+                  <!--关键字添加的表格-->
                   <table class="table table-bordered table-vertical-align margin-top-10" id="J-table-keywords">
                      <tr>
                         <td class="text-center">
@@ -73,16 +74,16 @@
                         <td>
                            <!--1级研究方向-->
                            <div class="form-group">
-                              <label for="researchdirect1" class="col-xs-3 control-label">1级研究方向</label>
+                              <label class="col-xs-3 control-label direct1">1级研究方向</label>
                               <div class="col-xs-8">
-                                 <input type="text" class="form-control operation-item" id="researchdirect1" value="信息论" disabled/>
+                                 <input type="text" class="form-control operation-item only-import J-direct1" value="信息论" disabled/>
                               </div>
                            </div>
                            <!--2级研究方向-->
                            <div class="form-group">
-                              <label for="researchdirect2" class="col-xs-3 control-label">2级研究方向</label>
+                              <label class="col-xs-3 control-label direct2">2级研究方向</label>
                               <div class="col-xs-8">
-                                 <input type="text" class="form-control operation-item" id="researchdirect2" value="经典信息论" disabled/>
+                                 <input type="text" class="form-control operation-item only-import J-direct2" value="经典信息论" disabled/>
                               </div>
                            </div>
                            <!--关键字-->
@@ -91,23 +92,23 @@
                               <div class="col-xs-8">
                                  <div class="row">
                                     <div class="col-xs-6">
-                                       <input type="text" class="form-control operation-item keyword" disabled>
+                                       <input type="text" class="form-control operation-item J-keyword only-import" disabled>
                                     </div>
                                     <div class="col-xs-6">
-                                       <input type="text" class="form-control operation-item keyword" disabled>
+                                       <input type="text" class="form-control operation-item J-keyword only-import" disabled>
                                     </div>
                                  </div>
                                  <div class="row margin-top-10">
                                     <div class="col-xs-6">
-                                       <input type="text" class="form-control operation-item keyword" disabled>
+                                       <input type="text" class="form-control operation-item J-keyword only-import" disabled>
                                     </div>
                                     <div class="col-xs-6">
-                                       <input type="text" class="form-control operation-item keyword" disabled>
+                                       <input type="text" class="form-control operation-item J-keyword only-import" disabled>
                                     </div>
                                  </div>
                                  <div class="row  margin-top-10">
                                     <div class="col-xs-6">
-                                       <input type="text" class="form-control operation-item keyword" disabled>
+                                       <input type="text" class="form-control operation-item J-keyword only-import" disabled>
                                     </div>
                                  </div>
 
@@ -118,6 +119,8 @@
                      </tr>
 
                   </table>
+
+
                </div>
             </div>
             <hr>
@@ -134,20 +137,31 @@
       </div>
    </div>
 </div>
-
+<!--可在全局范围内移动的列表组，用于展示不可自主填写的信息-->
+<ul class="list-group movepanel" id="J-movepanel">
+   <li class="list-group-item">内容1</li>
+   <li class="list-group-item">内容1</li>
+   <li class="list-group-item">内容1</li>
+   <li class="list-group-item">内容1</li>
+</ul>
 <script src="../../src/framework/js/jquery-2.2.2.min.js"></script>
 <script src="../../src/framework/js/bootstrap.min.js"></script>
 <script type="text/tpl-tr" id="table-tr" src="tpls/table-tr.tpl"></script>
 <script>
    var MAX_DIRECT = 2;
-   //论文修改的表单
-   var $paperform = $("#J-form-paper");
+
+   var $paperform = $("#J-form-paper");//论文修改的表单
    var $opItems = $paperform.find(".operation-item");//论文信息的可操作项
    var $paperEdit = $paperform.find("#J-paper-edit");
    var $paperSubmit = $paperform.find("#J-paper-update");
    var $keywordsTable = $paperform.find("#J-table-keywords");
    var $keywordsAdd = $paperform.find("#J-keywords-add");//关键字添加按钮
    var $keywordsDel = $paperform.find("#J-keywords-delete");//关键字删除按钮
+   var $onlyImport = $keywordsTable.find(".only-import");//不能自己输入，只能引入的input
+   var $movepanel = $("#J-movepanel");                     //全局移动的信息面板
+   var $direct1 =$onlyImport.filter(".J-direct1");
+   var $direct2 = $onlyImport.filter(".J-direct2");
+   var $keywords = $onlyImport.filter(".J-keyword");
    $paperEdit.click(function(){
       $opItems.attr("disabled",false);
       $paperEdit.attr("disabled",true);
@@ -167,6 +181,7 @@
          alert("你的研究方向已经达到添加上限");
          return;
       }
+      //获取模板并将模板内容添加到dom
       var src = $("#table-tr").attr("src");
       $.ajax(src,{
          type : "get",
@@ -185,7 +200,53 @@
       $checked.each(function(){
          $(this).parents("tr").remove();
       });
-   })
+   });
+
+   //让所有只能引入的input不能进行自定义输入
+   $onlyImport.keydown(function(e){
+      e.preventDefault();
+      e.returnValue =false;
+   });
+
+   var isSwitch = false;//是否为各个input之间的切换
+   //焦点到input上出现信息框
+   $onlyImport.focus(function(e){
+      var $this = $(this);
+      var offset = $this.offset();
+      var height = $this.outerHeight();
+      $movepanel.css("left",offset.left+"px");
+      $movepanel.css("top",offset.top + height + "px");
+      $movepanel.show();
+      isSwitch = true;
+
+      //根据direct1|2,keyword进行不同功能的添加
+      if($this.hasClass("J-direct1")){ //direct1
+         $.getJSON("json/test.json",function(data){
+            var $fragment = $(document.createDocumentFragment());//文档碎片
+            for(var i= 0,len=data.length;i<len;i++){
+
+            }
+         });
+      }else if($this.hasClass("J-direct2")){
+         console.log("dirct2");
+      }else if($this.hasClass("J-keyword")){
+         console.log("keyword");
+      }
+   });
+   //失去焦点，信息框隐藏
+   $onlyImport.blur(function(e){
+      isSwitch = false;
+      setTimeout(function(){
+         if(!isSwitch){
+            $movepanel.hide();
+         }
+      },100);
+   });
+
+   //全局信息框的点击
+   $movepanel.delegate("li","click",function(e){
+      console.log($(this).html());
+   });
 </script>
 </body>
 </html>

@@ -70,3 +70,15 @@ body{
 .result-detail{
     cursor: pointer;
 }
+
+/*全局移动的信息面板*/
+.movepanel{
+    position: absolute;
+    display: none;
+}
+.movepanel li{
+    cursor: pointer;
+}
+.movepanel li:hover{
+    background-color: #eee;
+}
