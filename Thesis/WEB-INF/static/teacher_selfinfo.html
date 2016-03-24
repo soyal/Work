@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>个人信息</title>
+   <link rel="stylesheet" href="../../src/framework/css/bootstrap.min.css">
+   <link rel="stylesheet" href="../../src/css/cover.css">
+</head>
+<body>
+<div class="container">
+   <!--置顶栏-->
+   <nav class="navbar navbar-default" role="navigation">
+      <div class="navbar-header">
+         <button type="button" class="navbar-toggle" data-toggle="collapse"
+                 data-target="#example-navbar-collapse">
+            <span class="sr-only">切换导航</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+         </button>
+         <a class="navbar-brand" href="#">论文送审系统</a>
+      </div>
+      <div class="col-xs-offset-10">
+         <ul class="nav navbar-nav">
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span>老师</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-log-out"></span>注销</a></li>
+         </ul>
+      </div>
+   </nav>
+
+   <!--内容-->
+   <div class="row">
+      <!--导航-->
+      <div class="col-xs-2">
+         <ul class="nav nav-pills nav-stacked">
+            <li class="active"><a href="student_selfinfo.html">个人信息</a></li>
+            <li><a href="student_paper.html">论文信息</a></li>
+         </ul>
+      </div>
+
+      <!--标签页-->
+      <div class="col-xs-10">
+         <ul id="myTab" class="nav nav-tabs">
+            <li class="active">
+               <a href="#updatepassword" data-toggle="tab">
+                  密码修改
+               </a>
+            </li>
+            <li><a href="#team" data-toggle="tab">团队归属</a></li>
+            <li><a href="#basicinfo"  data-toggle="tab">基本信息</a></li>
+         </ul>
+         <div id="myTabContent" class="tab-content">
+
+            <!--第一页标签内容-->
+            <div class="tab-pane fade in active" id="updatepassword">
+               <!--密码重置-->
+               <form class="form-horizontal update-password-form" role="form" action="updatepassword">
+                  <div class="form-group">
+                     <label for="password" class="col-xs-2 control-label col-xs-offset-1">新密码</label>
+                     <div class="col-xs-6">
+                        <input type="password" class="form-control" id="password"
+                               placeholder="新密码">
+                     </div>
+                  </div>
+
+                  <div class="form-group">
+                     <label for="confirm" class="col-xs-2 control-label col-xs-offset-1">密码确认</label>
+                     <div class="col-xs-6">
+                        <input type="password" class="form-control" id="confirm" placeholder="密码确认"/>
+                     </div>
+                  </div>
+
+                  <div class="form-group">
+                     <div class="col-xs-6 col-xs-offset-3">
+                        <button type="submit" class="btn btn-primary btn-full">确认修改</button>
+                     </div>
+                  </div>
+               </form>
+            </div>
+
+            <!--第二页标签 团队归属 （只有学生和老师包含）-->
+            <div class="tab-pane fade padding-top" id="team">
+               <form class="form-horizontal" role="form" action="updateteaminfo" id="J-form-hometeam" method="post">
+                  <div class="form-group">
+                     <label for="hometeam" class="col-xs-2 control-label col-xs-offset-1">团队归属</label>
+                     <div class="col-xs-6">
+                        <input type="text" class="form-control" id="hometeam" value="重邮团队" disabled/>
+                     </div>
+                  </div>
+
+                  <div class="form-group">
+                     <div class="col-xs-6 col-xs-offset-3">
+                        <button type="submit" class="btn btn-primary" id="J-hometeam-update" disabled>确认修改</button>
+                        <button type="button" class="btn btn-default" id="J-hometeam-edit">编辑</button>
+                     </div>
+                  </div>
+               </form>
+            </div>
+
+            <!--第三页标签页 基本信息-->
+            <div class="tab-pane fade padding-top" id="basicinfo">
+               <form class="form-horizontal" role="form" action="updatebasicinfo" id="J-form-basicinfo">
+                  <div class="form-group">
+                     <label for="username" class="col-xs-2 control-label col-xs-offset-1">姓名</label>
+                     <div class="col-xs-6">
+                        <input type="text" class="form-control info-item" id="username" value="李四" disabled/>
+                     </div>
+                  </div>
+
+                  <div class="form-group">
+                     <label for="professionaltitle" class="col-xs-2 control-label col-xs-offset-1">专业头衔</label>
+                     <div class="col-xs-6">
+                        <input type="text" class="form-control info-item" id="professionaltitle" value="XXXXX院长" disabled/>
+                     </div>
+                  </div>
+
+                  <div class="form-group">
+                     <label for="usercode" class="col-xs-2 control-label col-xs-offset-1">工号</label>
+                     <div class="col-xs-6">
+                        <input type="text" class="form-control info-item" id="usercode" value="2012111111" disabled/>
+                     </div>
+                  </div>
+
+                  <div class="form-group">
+                     <label for="sex" class="col-xs-2 control-label col-xs-offset-1">性别</label>
+                     <div class="col-xs-6">
+                        <input type="text" class="form-control info-item" id="sex" value="男" disabled/>
+                     </div>
+                  </div>
+
+                  <div class="form-group">
+                     <label for="phone" class="col-xs-2 control-label col-xs-offset-1">电话</label>
+                     <div class="col-xs-6">
+                        <input type="text" class="form-control info-item" id="phone" value="1888000000" disabled/>
+                     </div>
+                  </div>
+
+                  <div class="form-group">
+                     <label for="email" class="col-xs-2 control-label col-xs-offset-1">邮箱</label>
+                     <div class="col-xs-6">
+                        <input type="text" class="form-control info-item" id="email" value="男" disabled/>
+                     </div>
+                  </div>
+
+                  <div class="form-group">
+                     <label for="workunit" class="col-xs-2 control-label col-xs-offset-1">工作单位</label>
+                     <div class="col-xs-6">
+                        <input type="text" class="form-control info-item" id="workunit" value="重邮" disabled/>
+                     </div>
+                  </div>
+
+                  <div class="form-group">
+                     <div class="col-xs-6 col-xs-offset-3">
+                        <button type="submit" class="btn btn-primary" id="J-basicinfo-update" disabled>确认修改</button>
+                        <button type="button" class="btn btn-default" id="J-basicinfo-edit">编辑</button>
+                     </div>
+                  </div>
+               </form>
+            </div>
+         </div>
+
+      </div>
+   </div>
+</div>
+
+<script src="../../src/framework/js/jquery-2.2.2.min.js"></script>
+<script src="../../src/framework/js/bootstrap.min.js"></script>
+<script>
+   //团队归属
+   var $hometeamForm = $("#J-form-hometeam")
+   var $hometeam = $hometeamForm.find("#hometeam");//团队归属的输入框
+   var $hometeamSubmit = $hometeamForm.find("#J-hometeam-update");//修改信息提交按钮
+   var $hometeanEdit =  $hometeamForm.find("#J-hometeam-edit");//团队归属编辑按钮
+   $hometeanEdit.click(function(e){
+      $hometeam.attr("disabled",false);
+      $hometeamSubmit.attr("disabled",false);
+      $hometeanEdit.attr("disabled",true);
+   });
+   $hometeamSubmit.click(function(e){
+      $hometeam.attr("disabled",true);
+      $hometeanEdit.attr("disabled",false);
+      $hometeamSubmit.attr("disabled",false);
+      $hometeamForm.submit();
+      //可以在这里用ajax进行数据的插入
+   });
+
+   //基础信息
+   var $basicinfoForm = $("#J-form-basicinfo");
+   var $basicinfos = $basicinfoForm.find(".info-item");//所有的基础信息input标签
+   var $basicinfoSubmit = $basicinfoForm.find("#J-basicinfo-update"); //确认修改按钮
+   var $basicinfoEdit = $basicinfoForm.find("#J-basicinfo-edit");//基础信息编辑按钮
+   $basicinfoEdit.click(function(e){
+      $basicinfos.attr("disabled",false);
+      $basicinfoSubmit.attr("disabled",false);
+      $basicinfoEdit.attr("disabled",true);
+   });
+   $basicinfoSubmit.click(function(e){
+      $basicinfos.attr("disabled",true);
+      $basicinfoSubmit.attr("disabled",true);
+      $basicinfoEdit.attr("disabled",false);
+      $basicinfoForm.submit();
+   });
+</script>
+</body>
+</html>
