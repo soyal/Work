@@ -65,10 +65,10 @@
                         <button type="button" class="btn btn-default operation-item" id="J-keywords-delete" disabled>删除</button>
                      </div>
                   </div>
-                  <table class="table table-bordered table-vertical-align margin-top-10">
+                  <table class="table table-bordered table-vertical-align margin-top-10" id="J-table-keywords">
                      <tr>
                         <td class="text-center">
-                           <input type="checkbox" class="operation-item" disabled>
+                           <input type="checkbox" class="operation-item" name="isSelected" disabled>
                         </td>
                         <td>
                            <!--1级研究方向-->
@@ -137,11 +137,17 @@
 
 <script src="../../src/framework/js/jquery-2.2.2.min.js"></script>
 <script src="../../src/framework/js/bootstrap.min.js"></script>
+<script type="text/tpl-tr" id="table-tr" src="tpls/table-tr.tpl"></script>
 <script>
+   var MAX_DIRECT = 2;
+   //论文修改的表单
    var $paperform = $("#J-form-paper");
    var $opItems = $paperform.find(".operation-item");//论文信息的可操作项
    var $paperEdit = $paperform.find("#J-paper-edit");
    var $paperSubmit = $paperform.find("#J-paper-update");
+   var $keywordsTable = $paperform.find("#J-table-keywords");
+   var $keywordsAdd = $paperform.find("#J-keywords-add");//关键字添加按钮
+   var $keywordsDel = $paperform.find("#J-keywords-delete");//关键字删除按钮
    $paperEdit.click(function(){
       $opItems.attr("disabled",false);
       $paperEdit.attr("disabled",true);
@@ -153,6 +159,32 @@
       $paperEdit.attr("disabled",true);
       $paperSubmit.attr("disabled",false);
       $paperform.submit();
+   });
+
+   //添加关键字操作
+   $keywordsAdd.click(function(){
+      if($keywordsTable.find("tr").length>MAX_DIRECT-1){
+         alert("你的研究方向已经达到添加上限");
+         return;
+      }
+      var src = $("#table-tr").attr("src");
+      $.ajax(src,{
+         type : "get",
+         success : function(data){
+            $keywordsTable.append(data);
+         },
+         error : function(){
+            throw new Error("数据传输出错");
+         }
+      })
+   });
+
+   //删除关键字操作
+   $keywordsDel.click(function(){
+      var $checked = $keywordsTable.find("input:checkbox:checked");
+      $checked.each(function(){
+         $(this).parents("tr").remove();
+      });
    })
 </script>
 </body>
