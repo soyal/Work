@@ -12,6 +12,8 @@ var $papertitle = $paperform.find("#papertitle");//论文题目
 var $papertype = $paperform.find("#papertype");//论文类型
 var $keywordsAdd = $paperform.find("#J-keywords-add");//关键字添加按钮
 var $keywordsDel = $paperform.find("#J-keywords-delete");//关键字删除按钮
+var $initpage = $("#J-pageforinit");
+var $initinfo = $("#J-initinfo");
 var $onlyImport;                                         //不能自己输入，只能引入的input
 var $movepanel = $("#J-movepanel");                     //全局移动的信息面板
 var $direct1;
@@ -21,6 +23,7 @@ var $curTarget = null;//当前的选择目标
 var $lastTarget = null;//上一个选择目标
 var isfocusKeyword = false;
 var keywordIds = [];
+var trIndex = 0;
 function enableEdit(){
     $opItems.attr("disabled",false);
     $paperEdit.attr("disabled",true);
@@ -32,7 +35,7 @@ function forbidEdit(){
     $paperSubmit.attr("disabled",true);
 }
 
-//initDirectAndKeywords();
+initDirectAndKeywords();
 
 //信息编辑
 $paperEdit.click(enableEdit);
@@ -40,7 +43,6 @@ $paperEdit.click(enableEdit);
 //信息提交
 $paperSubmit.click(function(){
 
-console.log("keywordIds",keywordIds);
     var data = {};
     //检测是否有论文题目这一个input
     if($papertitle.length !== 0){//有,学生
@@ -94,35 +96,37 @@ $keywordsDel.click(function(){
     $checked.each(function(){
         //dom的移除
         $tr = $(this).parents("tr");
-
-        var index = $tr.index();
-        //keywordIds的移除
-        keywordIds.forEach(function(e,i,array){
-
-            if(e.trIndex == index){
-               array.splice(i,1);
-            }
-        });
-        $tr.remove();
+        deleteDirectAndKeywords($tr);
     });
 });
 
+function deleteDirectAndKeywords($tr){
+    //keywordIds的移除
+    keywordIds.forEach(function(e,i,array){
+        if(e.trIndex == $tr.attr("data-index")){
+            array[i] = undefined;
+        }
+    });
+    keywordIds = filterUndefined(keywordIds);
+    $tr.remove();
+}
+
+function showInitInfo(){//展示信息加载的信息，隐藏内容面板
+    $initpage.hide();
+    $initinfo.show();
+}
+function hideInitInfo(){//隐藏信息加载的信息，展示内容面板
+    $initpage.show();
+    $initinfo.hide();
+}
 //研究方向及关键字初始化
 function initDirectAndKeywords(){
-    var $initpage = $("#J-pageforinit");
-    var $initinfo = $("#J-initinfo");
-    function showInitInfo(){
-        $initpage.hide();
-        $initinfo.show();
-    }
-    function hideInitInfo(){
-        $initpage.show();
-        $initinfo.hide();
-    }
 
     showInitInfo();
     $.getJSON("../../WEB-INF/static/json/initinfo.json",function(data){
-        console.log(data);
+        data.forEach(function(e){
+            addDomTrAndFillData(e);
+        });
     });
 }
 
@@ -139,6 +143,7 @@ function addDomTr(callback){
         success : function(data){
             $tr = $(data);
             $keywordsTable.append($tr);
+            $tr.attr("data-index",trIndex++);
             bindEventForKeywords();
             if(callback){
                 callback($tr);
@@ -151,14 +156,28 @@ function addDomTr(callback){
 }
 function addDomTrAndFillData(obj){
     addDomTr(function($tr){
-        $tr.find("#J-direct1").val(obj.researchdirection1);
-        $tr.find("#J-direct2").val(obj.researchdirection2);
+        //$tr.find("#J-direct1").val(obj.researchdirection1);
+        //$tr.find("#J-direct2").val(obj.researchdirection2);
+        var direct1 = obj.researchdirection1;
+        var direct2 = obj.researchdirection2;
         var keywords = obj.keywords;
-        var $keywordsInput = $tr.find(".J-keyword");
-        keywords.forEach(function(el,i,array){
-            $keywordsInput[i].val(el);
 
+        //在dom中插入数据
+        var $direct1Input = $tr.find(".J-direct1");//1级研究方向
+        var $direct2Input = $tr.find(".J-direct2");//2级研究方向
+        var $keywordsInput = $tr.find(".J-keyword");//关键字
+        writeDirection(direct1.researchdirectionid,direct1.name,$direct1Input);
+        $direct1Input.attr("disabled",true);
+        writeDirection(direct2.researchdirectionid,direct2.name,$direct2Input);
+        $direct2Input.attr("disabled",true);
+        keywords.forEach(function(el,i,array){        //遍历从服务器获取的keywords
+            writeKeyword(el.id,el.value,$keywordsInput.eq(i));
         });
+        $keywordsInput.each(function(){
+            $(this).attr("disabled",true);
+        });
+
+        hideInitInfo();
     });
 }
 
@@ -226,7 +245,6 @@ function bindEventForKeywords(){
             //第二级研究方向根据第一级研究方向获取
         }else if($this.hasClass("J-direct2")){
             var direct1 = $this.parents("td").find(".J-direct1").attr("data-id");
-            console.log(direct1);
             if(!direct1) {
                 clearMovePanel();
                 return;
@@ -277,30 +295,68 @@ $movepanel.delegate("li","click",function(e){
 
     //如果focus的是关键字的input
     if(isfocusKeyword){
-        writeKeywordId($this.attr('data-id'));
+        writeKeyword($this.attr('data-id'),$this.html(),$curTarget);
+    }else{
+        writeDirection($this.attr('data-id'),$this.html(),$curTarget);
     }
 
-    $curTarget.val( $this.html());
-    $curTarget.attr("data-id",$this.attr("data-id"));
-    $movepanel.html("");//清空信息框的数据
+    //$curTarget.val( $this.html());
+    //$curTarget.attr("data-id",$this.attr("data-id"));
+    //$movepanel.html("");//清空信息框的数据
 });
 
-//往keyword input中填入数据时的数据操作，不包括将值写入Input
-function writeKeywordId(id){
-    var $tr = $curTarget.parents("tr");
-    var inputIndex = $tr.find(".J-keyword").index($curTarget);
-    if($curTarget.val()){//如果已经有值
+/**
+ * 往keyword input中填入数据时的数据操作，不包括将值写入Input
+ * @param id  要出入input的 data-id的值
+ * @param value
+ * @param target
+ */
+function writeKeyword(id,value,target){
+//console.log("write keyword","value = "+value,"id = "+id);
+    var $tr = target.parents("tr");
+    var inputIndex = $tr.find(".J-keyword").index(target);
+    if(target.val()){//如果已经有值
         keywordIds.forEach(function(e,i,array){
             if(e.inputIndex == inputIndex){
                 array[i].value = id;
             }
         })
     }else{
-        var index = $tr.index();
+        var index = $tr.attr("data-index");
         keywordIds.push({
             trIndex : index,
             inputIndex : inputIndex,
             value : id
         });
     }
+    target.val( value);
+    target.attr("data-id",id);
+    $movepanel.html("");//清空信息框的数据
+}
+
+/**
+ * 向direction input 写入数据并插入data-id
+ * @param id
+ * @param value
+ * @param $target  目前的焦点
+ */
+function writeDirection(id,value,$target){
+    //$target.val(value);
+    //$target.attr("data-id",id);
+    $target.val( value);
+    $target.attr("data-id",id);
+    $movepanel.html("");//清空信息框的数据
+}
+
+/**
+ * 删除数组中的undefined的值
+ * @param array
+ */
+function filterUndefined(array){
+    return array.filter(function(e){
+        if(e !== undefined){
+            return true
+        }
+        return false;
+    })
 }
