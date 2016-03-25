@@ -1,0 +1,73 @@
+
+  {
+    "student": {
+      "name": "测试内容38j6",
+      "num": "测试内容8ut7",
+      "paper": {
+        "keywords": [
+          "string1",
+          "string2",
+          "string3",
+          "string4",
+          "string5"
+        ],
+        "researchdirection": [
+          "string1",
+          "string2",
+          "string3",
+          "string4",
+          "string5"
+        ],
+        "title": "测试内容li5c",
+        "type": "测试内容qn54"
+      },
+      "teamname": "测试内容871b"
+    },
+    "teacher1": {
+      "name": "测试内容u7zp",
+      "num": "测试内容kf5f",
+      "researchdirection": [
+        {
+          "keywords": [
+            "string1",
+            "string2",
+            "string3",
+            "string4",
+            "string5"
+          ],
+          "name": "测试内容25vx"
+        },
+        {
+          "keywords": [
+            "string1",
+            "string2",
+            "string3",
+            "string4",
+            "string5"
+          ],
+          "name": "测试内容25vx"
+        }
+      ],
+      "teamname": "测试内容chdy",
+      "unit": "测试内容4gc7"
+    },
+    "teacher2": {
+      "name": "测试内容u7zp",
+      "num": "测试内容kf5f",
+      "researchdirection": [
+        {
+          "keywords": [
+            "string1",
+            "string2",
+            "string3",
+            "string4",
+            "string5"
+          ],
+          "name": "测试内容25vx"
+        }
+      ],
+      "teamname": "测试内容chdy",
+      "unit": "测试内容4gc7"
+    }
+  }
+
