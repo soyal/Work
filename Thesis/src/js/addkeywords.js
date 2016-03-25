@@ -1,7 +1,7 @@
 /**
  * Created by Soyal on 2016/3/24.
  */
-var MAX_DIRECT = 2;
+
 
 var $paperform = $("#J-form-paper");//论文修改的表单
 var $opItems = $paperform.find(".operation-item");//论文信息的可操作项
@@ -17,21 +17,29 @@ var $movepanel = $("#J-movepanel");                     //全局移动的信息�
 var $direct1;
 var $direct2;
 var $keywords;
-var curTarget = null;//当前的选择目标
+var $curTarget = null;//当前的选择目标
+var $lastTarget = null;//上一个选择目标
 var isfocusKeyword = false;
 var keywordIds = [];
-//信息编辑
-$paperEdit.click(function(){
+function enableEdit(){
     $opItems.attr("disabled",false);
     $paperEdit.attr("disabled",true);
     $paperSubmit.attr("disabled",false);
-});
-
-//信息提交
-$paperSubmit.click(function(){
+}
+function forbidEdit(){
     $opItems.attr("disabled",true);
     $paperEdit.attr("disabled",false);
     $paperSubmit.attr("disabled",true);
+}
+
+initDirectAndKeywords();
+
+//信息编辑
+$paperEdit.click(enableEdit);
+
+//信息提交
+$paperSubmit.click(function(){
+
 console.log("keywordIds",keywordIds);
     var data = {};
     //检测是否有论文题目这一个input
@@ -47,14 +55,13 @@ console.log("keywordIds",keywordIds);
     }else{  //没有，老师
 
     }
-
     //检测是否有填写关键字
     if(keywordIds.length == 0&&$keywordsTable.find("tr").length>0){
-        alert("请选择关键字");
+        alert("请完善研究方向或关键字信息");
         return false;
     }
 
-
+    forbidEdit();
 
 
     data.researchDirection = [];
@@ -75,24 +82,9 @@ console.log(data);
     })
 });
 
-//添加关键字操作
+//添加关键字方向的面板操作
 $keywordsAdd.click(function(){
-    if($keywordsTable.find("tr").length>MAX_DIRECT-1){
-        alert("你的研究方向已经达到添加上限");
-        return;
-    }
-    //获取模板并将模板内容添加到dom
-    var src = $("#table-tr").attr("src");
-    $.ajax(src,{
-        type : "get",
-        success : function(data){
-            $keywordsTable.append(data);
-            bindEventForKeywords();
-        },
-        error : function(){
-            throw new Error("数据传输出错");
-        }
-    })
+    addDomTr();
 });
 
 //删除关键字操作
@@ -115,6 +107,60 @@ $keywordsDel.click(function(){
     });
 });
 
+//研究方向及关键字初始化
+function initDirectAndKeywords(){
+    var $initpage = $("#J-pageforinit");
+    var $initinfo = $("#J-initinfo");
+    function showInitInfo(){
+        $initpage.hide();
+        $initinfo.show();
+    }
+    function hideInitInfo(){
+        $initpage.show();
+        $initinfo.hide();
+    }
+
+    showInitInfo();
+    $.getJSON("../../WEB-INF/static/json/initinfo.json",function(data){
+        console.log(data);
+    });
+}
+
+function addDomTr(callback){
+    //if($keywordsTable.find("tr").length>MAX_DIRECT-1){
+    //    alert("你的研究方向已经达到添加上限");
+    //    return;
+    //}
+    //获取模板并将模板内容添加到dom
+    var src = $("#table-tr").attr("src");
+    var $tr;
+    $.ajax(src,{
+        type : "get",
+        success : function(data){
+            $tr = $(data);
+            $keywordsTable.append($tr);
+            bindEventForKeywords();
+            callback($tr);
+        },
+        error : function(){
+            throw new Error("数据传输出错");
+        }
+    })
+}
+function addDomTrAndFillData(obj,keywordIdsItem){
+    addDomTr(function($tr){
+        $tr.find("#J-direct1").val(obj.researchdirection1);
+        $tr.find("#J-direct2").val(obj.researchdirection2);
+        var keywords = obj.keywords;
+        var $keywordsInput = $tr.find(".J-keyword");
+        keywords.forEach(function(el,i,array){
+            $keywordsInput[i].val(el);
+            keywordIdsItem.
+        });
+    });
+}
+
+//清除全局移动窗口的数据
 function clearMovePanel(){
     $movepanel.html("");
 }
@@ -122,6 +168,7 @@ function clearMovePanel(){
 //为所有与keywords功能相关的元素绑定事件
 function bindEventForKeywords(){
     //因为引入模板会加入新的元素，所以需要重新查找
+    $opItems = $paperform.find(".operation-item");//论文信息的可操作项
     $onlyImport = $paperform.find(".only-import");
     $direct1 =$onlyImport.filter(".J-direct1");
     $direct2 = $onlyImport.filter(".J-direct2");
@@ -160,7 +207,8 @@ console.log("focus!");
         var $this = $(this);
         var offset = $this.offset();
         var height = $this.outerHeight();
-        curTarget = $this;
+        $lastTarget = $curTarget;
+        $curTarget = $this;
         $movepanel.css("left",offset.left+"px");
         $movepanel.css("top",offset.top + height + "px");
         $movepanel.show();
@@ -225,17 +273,48 @@ bindEventForKeywords();
 
 $movepanel.delegate("li","click",function(e){
     var $this = $(this);
-    //var $item = $("#J-" + $this.attr('data-name'));
+
+    //如果focus的是关键字的input
     if(isfocusKeyword){
-        //insertHidden($paperform,$this.attr('data-name'),$this.attr('data-id'));
-        var index = $(curTarget).parents("tr").index();
-        keywordIds.push({
-            trIndex : index,
-            value : $this.attr('data-id')
-        });
+        var $tr = $curTarget.parents("tr");
+        var inputIndex = $tr.find(".J-keyword").index($curTarget);
+        if($curTarget.val()){//如果已经有值
+            keywordIds.forEach(function(e,i,array){
+                if(e.inputIndex == inputIndex){
+                    array[i].value = $this.attr('data-id');
+                }
+            })
+        }else{
+            var index = $tr.index();
+            keywordIds.push({
+                trIndex : index,
+                inputIndex : inputIndex,
+                value : $this.attr('data-id')
+            });
+        }
     }
 
-    curTarget.val( $this.html());
-    curTarget.attr("data-id",$this.attr("data-id"));
+    $curTarget.val( $this.html());
+    $curTarget.attr("data-id",$this.attr("data-id"));
     $movepanel.html("");//清空信息框的数据
 });
+
+//往keyword input中填入数据时的数据操作，不包括将值写入Input
+function writeKeywordId(id){
+    var $tr = $curTarget.parents("tr");
+    var inputIndex = $tr.find(".J-keyword").index($curTarget);
+    if($curTarget.val()){//如果已经有值
+        keywordIds.forEach(function(e,i,array){
+            if(e.inputIndex == inputIndex){
+                array[i].value = id;
+            }
+        })
+    }else{
+        var index = $tr.index();
+        keywordIds.push({
+            trIndex : index,
+            inputIndex : inputIndex,
+            value : id
+        });
+    }
+}

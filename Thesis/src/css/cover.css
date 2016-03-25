@@ -42,6 +42,9 @@ body{
 .margin-top-10{
     margin-top: 10px;
 }
+.initinfo{
+    display: none;
+}
 
 /*登陆页面*/
 .login-h1{

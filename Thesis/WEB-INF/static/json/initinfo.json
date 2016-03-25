@@ -1,0 +1,17 @@
+[
+  {
+    "researchdirection1" : "信息论",
+    "researchdirection2" : "经典信息论",
+    "keywords" : ["{'id':1,'value':'信息论1-关键词1'}","{'id':2,'value':'信息论1-关键词2'}"]
+  },
+  {
+    "researchdirection1" : "信息论2",
+    "researchDirection2" : "经典信息论2",
+    "keywords" : ["{'id':3,'value':'信息论2-关键词1'}","{'id':4,'value':'信息论2-关键词2'}"]
+  },
+  {
+    "researchdirection1" : "信息论3",
+    "researchdirection2" : "经典信息论3",
+    "keywords" : ["{'id':5,'value':'信息论3-关键词1'}","{'id':6,'value':'信息论3-关键词2'}"]
+  }
+]
