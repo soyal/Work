@@ -32,7 +32,7 @@ function forbidEdit(){
     $paperSubmit.attr("disabled",true);
 }
 
-initDirectAndKeywords();
+//initDirectAndKeywords();
 
 //信息编辑
 $paperEdit.click(enableEdit);
@@ -140,14 +140,16 @@ function addDomTr(callback){
             $tr = $(data);
             $keywordsTable.append($tr);
             bindEventForKeywords();
-            callback($tr);
+            if(callback){
+                callback($tr);
+            }
         },
         error : function(){
             throw new Error("数据传输出错");
         }
     })
 }
-function addDomTrAndFillData(obj,keywordIdsItem){
+function addDomTrAndFillData(obj){
     addDomTr(function($tr){
         $tr.find("#J-direct1").val(obj.researchdirection1);
         $tr.find("#J-direct2").val(obj.researchdirection2);
@@ -155,7 +157,7 @@ function addDomTrAndFillData(obj,keywordIdsItem){
         var $keywordsInput = $tr.find(".J-keyword");
         keywords.forEach(function(el,i,array){
             $keywordsInput[i].val(el);
-            keywordIdsItem.
+
         });
     });
 }
@@ -202,7 +204,6 @@ function bindEventForKeywords(){
     }
     //焦点到input上出现信息框
     $onlyImport.focus(function(e){
-console.log("focus!");
         $movepanel.html("请稍等···");
         var $this = $(this);
         var offset = $this.offset();
@@ -276,22 +277,7 @@ $movepanel.delegate("li","click",function(e){
 
     //如果focus的是关键字的input
     if(isfocusKeyword){
-        var $tr = $curTarget.parents("tr");
-        var inputIndex = $tr.find(".J-keyword").index($curTarget);
-        if($curTarget.val()){//如果已经有值
-            keywordIds.forEach(function(e,i,array){
-                if(e.inputIndex == inputIndex){
-                    array[i].value = $this.attr('data-id');
-                }
-            })
-        }else{
-            var index = $tr.index();
-            keywordIds.push({
-                trIndex : index,
-                inputIndex : inputIndex,
-                value : $this.attr('data-id')
-            });
-        }
+        writeKeywordId($this.attr('data-id'));
     }
 
     $curTarget.val( $this.html());
