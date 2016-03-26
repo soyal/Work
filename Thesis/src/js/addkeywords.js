@@ -209,20 +209,16 @@ function bindEventForKeywords(){
         var $fragment = $(document.createDocumentFragment());//文档碎片
         for(var i= 0,len=data.length;i<len;i++){
             var $li = $("<li class='list-group-item'></li>");
-            for(var key in data[i]){
-                if(key != "name"){
-                    $li.attr("data-name",key);
-                    $li.attr("data-id",data[i][key]);
-                }else{
-                    $li.html(data[i][key]);
-                }
-            }
+            $li.attr("data-id",data[i].researchdirectionid);
+            $li.html(data[i].name);
             $fragment.append($li);
         }
         $movepanel.append($fragment);
     }
     //焦点到input上出现信息框
+
     $onlyImport.focus(function(e){
+console.log("focus");
         $movepanel.html("请稍等···");
         var $this = $(this);
         var offset = $this.offset();
@@ -245,6 +241,7 @@ function bindEventForKeywords(){
             //第二级研究方向根据第一级研究方向获取
         }else if($this.hasClass("J-direct2")){
             var direct1 = $this.parents("td").find(".J-direct1").attr("data-id");
+    console.log("direct1",direct1);
             if(!direct1) {
                 clearMovePanel();
                 return;
@@ -257,6 +254,7 @@ function bindEventForKeywords(){
         }else if($this.hasClass("J-keyword")){
             isfocusKeyword = true;
             var direct2 = $this.parents("td").find(".J-direct2").attr("data-id");
+    console.log("direct1",direct2);
             if(!direct2) {
                 clearMovePanel();
                 return;

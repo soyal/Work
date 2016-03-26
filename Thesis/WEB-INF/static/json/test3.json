@@ -1,1 +1,1 @@
-[{"userResearchDirectionId" : "-1" , "name" : "计算机1"},{"userResearchDirectionId" : "-2" , "name" : "计算机2"},{"userResearchDirectionId" : "-3" , "name" : "计算机3"}]
+[{"researchdirectionid":1,"layer":1,"name":"信息论","pid":0},{"researchdirectionid":2,"layer":1,"name":"信息系统","pid":0},{"researchdirectionid":3,"layer":1,"name":"通信理论与系统","pid":0},{"researchdirectionid":4,"layer":1,"name":"网络通信","pid":0},{"researchdirectionid":5,"layer":1,"name":"移动通信","pid":0},{"researchdirectionid":6,"layer":1,"name":"空天通信","pid":0}]
