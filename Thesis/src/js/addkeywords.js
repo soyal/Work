@@ -250,8 +250,8 @@ function bindEventForKeywords(){
                 return;
             }
             //TODO
-            $.getJSON("../../WEB-INF/static/json/test3.json",{userResearchDirectionId : direct1},function(data){
-                insertIntoMovePanel(data)
+            $.getJSON("../../WEB-INF/static/json/test3.json",{researchdirectionid : direct1},function(data){
+                insertIntoMovePanel(data);
             });
             //关键字根据第二级研究方向获取
         }else if($this.hasClass("J-keyword")){
@@ -262,13 +262,13 @@ function bindEventForKeywords(){
                 return;
             }
             //TODO
-            $.getJSON("../../WEB-INF/static/json/test3.json",{userResearchDirectionId : direct2},function(data){
+            $.getJSON("../../WEB-INF/static/json/test3.json",{researchdirectionid : direct2},function(data){
                 insertIntoMovePanel(data);
-            })
+            });
         }else if($this.hasClass("J-papertype")){
             insertIntoMovePanel([{
                 name : "理论研究"
-            }])
+            }]);
         }
     });
     //失去焦点，信息框隐藏
