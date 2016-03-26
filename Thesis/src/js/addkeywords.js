@@ -77,7 +77,8 @@ console.log(data);
 
     $.ajax("../../WEB-INF/static/json/test.json",{
         type : "post",
-        data : data,
+        data : JSON.stringify(data),
+        headers: {'Content-type': 'application/json;charset=UTF-8'},
         success : function(){
             console.log("success");
         }
@@ -125,6 +126,10 @@ function initDirectAndKeywords(){
     showInitInfo();
     $.getJSON("../../WEB-INF/static/json/initinfo.json",function(data){
         data.forEach(function(e){
+        	if(e.isnull){
+        		hideInitInfo();
+        		return ;
+        	}
             addDomTrAndFillData(e);
         });
     });
