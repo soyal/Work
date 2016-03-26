@@ -7,7 +7,15 @@
     <link rel="stylesheet" href="../../src/css/cover.css"/>
 </head>
 <body>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="alert alert-danger text-center J-warning" id="J-warning">
+                <p>您目前使用的浏览器版本过低，不能正常使用本网站，请使用最新的IE浏览器或者是chrome浏览器</p>
+            </div>
+        </div>
+    </div>
     <div class="container">
+
         <div class="login-container col-xs-8 col-xs-offset-2">
             <div class="row">
                 <div class="col-xs-12">
@@ -38,5 +46,12 @@
             </form>
         </div>
     </div>
+    <script src="../../src/framework/js/jquery-1.8.3.min.js"></script>
+    <script src="../../src/js/browserdetect.js"></script>
+    <script>
+        if(curBrowser == "IE8"){
+            $("#J-warning").show();
+        }
+    </script>
 </body>
 </html>
