@@ -195,6 +195,7 @@ function bindEventForKeywords(){
     $direct2 = $onlyImport.filter(".J-direct2");
     $keywords = $onlyImport.filter(".J-keyword");
 
+    $onlyImport.unbind();//移除所有事件，否则会造成重复绑定
     //让所有只能引入的input不能进行自定义输入
     $onlyImport.keydown(function(e){
         e.preventDefault();
