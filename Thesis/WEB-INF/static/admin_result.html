@@ -166,10 +166,10 @@
                                             <td  data-bind="title"></td>
                                             <td  data-bind="type"></td>
                                             <td  data-bind="researchdirection">
-                                                <p data-bind="direction"></p>
+                                                <p data-bind="value"></p>
                                             </td>
                                             <td data-bind="keywords">
-                                                <span data-bind="keyword"></span>
+                                                <span data-bind="value"></span>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -212,7 +212,7 @@
                                         <tr>
                                             <td data-bind="name">信息论</td>
                                             <td data-bind="keywords">
-                                                <span data-bind="keyword"></span>
+                                                <span data-bind="value"></span>
                                             </td>
                                         </tr>
 
@@ -256,7 +256,7 @@
                                         <tr>
                                             <td data-bind="name">信息论</td>
                                             <td data-bind="keywords">
-                                                <span data-bind="keyword"></span>
+                                                <span data-bind="value"></span>
                                             </td>
                                         </tr>
 
@@ -298,48 +298,48 @@
 <script src="../../src/framework/js/bootstrap.min.js"></script>
 <script src="../../src/framework/js/transparency.min.js"></script>
 <script>
-    var directives = {
-        student : {
-            paper : {
-                researchdirection : {
-                    direction : {
-                        text: function() {
-                            return this.value;
-                        }
-                    }
-                },
-                keywords : {
-                    keyword : {
-                        text : function(){
-                            return this.value
-                        }
-                    }
-                }
-            }
-        },
-        teacher1 :{
-            researchdirection : {
-                keywords : {
-                    keyword : {
-                        text : function(){
-                            return this.value
-                        }
-                    }
-                }
-            }
-        },
-        teacher2 :{
-            researchdirection : {
-                keywords : {
-                    keyword : {
-                        text : function(){
-                            return this.value
-                        }
-                    }
-                }
-            }
-        }
-    };
+//    var directives = {
+//        student : {
+//            paper : {
+//                researchdirection : {
+//                    direction : {
+//                        text: function() {
+//                            return this.value;
+//                        }
+//                    }
+//                },
+//                keywords : {
+//                    keyword : {
+//                        text : function(){
+//                            return this.value
+//                        }
+//                    }
+//                }
+//            }
+//        },
+//        teacher1 :{
+//            researchdirection : {
+//                keywords : {
+//                    keyword : {
+//                        text : function(){
+//                            return this.value
+//                        }
+//                    }
+//                }
+//            }
+//        },
+//        teacher2 :{
+//            researchdirection : {
+//                keywords : {
+//                    keyword : {
+//                        text : function(){
+//                            return this.value
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    };
     //开始匹配
     $("#J-startmatch").click(function(e){
         //TODO
@@ -361,7 +361,7 @@
         $.getJSON("../../WEB-INF/static/json/detail.json",{
             userids : ids
         },function(data){
-            $("#detail").render(data,directives);
+            $("#detail").render(data);
         });
     });
 
