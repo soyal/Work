@@ -173,9 +173,9 @@
                                         <th>关键字</th>
                                         </thead>
                                         <tbody>
-                                        <tr data-bind="researchdirection">
-                                            <td>
-                                                <p data-bind="name"></p>
+                                        <tr>
+                                            <td data-bind="researchdirection">
+                                                <p data-bind="value"></p>
                                             </td>
                                             <td data-bind="keywords">
                                                 <span data-bind="value"></span>
@@ -217,9 +217,11 @@
                                         <th>研究方向</th>
                                         <th>关键字</th>
                                         </thead>
-                                        <tbody  data-bind="researchdirection">
+                                        <tbody>
                                         <tr>
-                                            <td data-bind="name">信息论</td>
+                                            <td data-bind="researchdirection">
+                                                <p data-bind="value"></p>
+                                            </td>
                                             <td data-bind="keywords">
                                                 <span data-bind="value"></span>
                                             </td>
@@ -233,7 +235,7 @@
                             <!--匹配教师2-->
                             <div class="panel panel-default" data-bind="teacher2">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">匹配教师1</h3>
+                                    <h3 class="panel-title">匹配教师2</h3>
                                 </div>
                                 <div class="panel-body">
                                     <!--基础信息-->
@@ -261,9 +263,11 @@
                                         <th>研究方向</th>
                                         <th>关键字</th>
                                         </thead>
-                                        <tbody  data-bind="researchdirection">
+                                        <tbody>
                                         <tr>
-                                            <td data-bind="name">信息论</td>
+                                            <td data-bind="researchdirection">
+                                                <p data-bind="value"></p>
+                                            </td>
                                             <td data-bind="keywords">
                                                 <span data-bind="value"></span>
                                             </td>
@@ -307,48 +311,6 @@
 <script src="../../src/framework/js/bootstrap.min.js"></script>
 <script src="../../src/framework/js/transparency.min.js"></script>
 <script>
-//    var directives = {
-//        student : {
-//            paper : {
-//                researchdirection : {
-//                    direction : {
-//                        text: function() {
-//                            return this.value;
-//                        }
-//                    }
-//                },
-//                keywords : {
-//                    keyword : {
-//                        text : function(){
-//                            return this.value
-//                        }
-//                    }
-//                }
-//            }
-//        },
-//        teacher1 :{
-//            researchdirection : {
-//                keywords : {
-//                    keyword : {
-//                        text : function(){
-//                            return this.value
-//                        }
-//                    }
-//                }
-//            }
-//        },
-//        teacher2 :{
-//            researchdirection : {
-//                keywords : {
-//                    keyword : {
-//                        text : function(){
-//                            return this.value
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    };
     //开始匹配
     $("#J-startmatch").click(function(e){
         //TODO

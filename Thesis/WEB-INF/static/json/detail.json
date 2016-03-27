@@ -3,65 +3,67 @@
     "student": {
       "name": "测试内容38j6",
       "num": "测试内容8ut7",
-      "paper": {
-        "keywords": [{
-          "value" : "string1"
-        },{
-          "value" : "string2"
-        },{
-          "value" : "string3"
-        },{
-          "value" : "string4"
-        },{
-          "value" : "string5"
-        }],
-        "researchdirection": [{
-          "value" : "string1"
-        },{
-          "value" : "string2"
-        },{
-          "value" : "string3"
-        },{
-          "value" : "string4"
-        },{
-          "value" : "string5"
-        }],
-        "title": "测试内容li5c",
-        "type": "测试内容qn54"
-      },
+      "papertitle": "测试内容li5c",
+      "papertype": "测试内容qn54",
+      "researchdirection":[
+        {
+          "value" : "研究方向sfds"
+        },
+        {
+          "value" : "研究方向sss"
+        },
+        {
+          "value" : "研究方向sfdds"
+        }
+      ],
+      "keywords" : [
+        {
+          "value" : "关键字dfsdf"
+        },
+        {
+          "value" : "关键字dfsdf"
+        },
+        {
+          "value" : "关键字dfsdf"
+        },
+        {
+          "value" : "关键字dfsdf"
+        },
+        {
+          "value" : "关键字dfsdf"
+        }
+      ],
       "teamname": "测试内容871b"
     },
     "teacher1": {
       "name": "测试内容u7zp",
       "num": "测试内容kf5f",
-      "researchdirection": [
+      "researchdirection":[
         {
-          "keywords": [{
-            "value" : "string1"
-          },{
-            "value" : "string2"
-          },{
-            "value" : "string3"
-          },{
-            "value" : "string4"
-          },{
-            "value" : "string5"
-          }],
-          "name": "测试内容25vx"
+          "value" : "研究方向sfds"
         },
         {
-          "keywords": [{
-            "value" : "string1"
-          },{
-            "value" : "string2"
-          },{
-            "value" : "string3"
-          },{
-            "value" : "string4"
-          },{
-            "value" : "string5"
-          }],
-          "name": "测试内容25vx"
+          "value" : "研究方向sss"
+        },
+        {
+          "value" : "研究方向sfdds"
+        }
+      ],
+      "keywords" : [
+        {
+          "value" : "关键字dfsdf"
+        },
+        {
+          "value" : "关键字dfsdf"
+        },
+        {
+          "value" : "关键字dfsdf"
+        },
+        {
+          "value" : "关键字dfsdf"
+        },
+        {
+          "value" : "关键字dfsdf"
         }
       ],
       "teamname": "测试内容chdy",
@@ -70,20 +72,32 @@
     "teacher2": {
       "name": "测试内容u7zp",
       "num": "测试内容kf5f",
-      "researchdirection": [
+      "researchdirection":[
         {
-          "keywords": [{
-            "value" : "string1"
-          },{
-            "value" : "string2"
-          },{
-            "value" : "string3"
-          },{
-            "value" : "string4"
-          },{
-            "value" : "string5"
-          }],
-          "name": "测试内容25vx"
+          "value" : "研究方向sfds"
+        },
+        {
+          "value" : "研究方向sss"
+        },
+        {
+          "value" : "研究方向sfdds"
+        }
+      ],
+      "keywords" : [
+        {
+          "value" : "关键字dfsdf"
+        },
+        {
+          "value" : "关键字dfsdf"
+        },
+        {
+          "value" : "关键字dfsdf"
+        },
+        {
+          "value" : "关键字dfsdf"
+        },
+        {
+          "value" : "关键字dfsdf"
         }
       ],
       "teamname": "测试内容chdy",
