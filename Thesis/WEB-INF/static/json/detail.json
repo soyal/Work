@@ -68,40 +68,7 @@
       ],
       "teamname": "测试内容chdy",
       "unit": "测试内容4gc7"
-    },
-    "teacher2": {
-      "name": "测试内容u7zp",
-      "num": "测试内容kf5f",
-      "researchdirection":[
-        {
-          "value" : "研究方向sfds"
-        },
-        {
-          "value" : "研究方向sss"
-        },
-        {
-          "value" : "研究方向sfdds"
-        }
-      ],
-      "keywords" : [
-        {
-          "value" : "关键字dfsdf"
-        },
-        {
-          "value" : "关键字dfsdf"
-        },
-        {
-          "value" : "关键字dfsdf"
-        },
-        {
-          "value" : "关键字dfsdf"
-        },
-        {
-          "value" : "关键字dfsdf"
-        }
-      ],
-      "teamname": "测试内容chdy",
-      "unit": "测试内容4gc7"
     }
+
   }
 

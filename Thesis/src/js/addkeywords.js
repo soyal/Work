@@ -171,6 +171,7 @@ function addDomTrAndFillData(obj){
         var $direct1Input = $tr.find(".J-direct1");//1级研究方向
         var $direct2Input = $tr.find(".J-direct2");//2级研究方向
         var $keywordsInput = $tr.find(".J-keyword");//关键字
+        $tr.find(":checkbox").attr("disabled",true);
         writeDirection(direct1.researchdirectionid,direct1.name,$direct1Input);
         $direct1Input.attr("disabled",true);
         writeDirection(direct2.researchdirectionid,direct2.name,$direct2Input);
@@ -282,21 +283,16 @@ console.log("focus");
             if(!isSwitch){
                 $movepanel.hide();
             }
-        },100);
+        },200);
     });
 }
-
-//向form里面插入 hidden的input
-//function insertHidden(form,name,id){
-//    form.prepend("<input type='hidden' name='"+name+"' id='J-"+name+"' value='"+id+"'>");
-//}
 
 bindEventForKeywords();
 //全局信息框的点击
 
 $movepanel.delegate("li","click",function(e){
     var $this = $(this);
-
+console.log("click");
     //如果focus的是关键字的input
     if(isfocusKeyword){
         writeKeyword($this.attr('data-id'),$this.html(),$curTarget);
