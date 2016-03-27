@@ -154,19 +154,28 @@
                                     </table>
                                     <!--论文信息-->
                                     <h3>论文信息</h3>
-                                    <table class="table table-bordered table-vertical-align" data-bind="paper">
+                                    <table class="table table-bordered table-vertical-align">
                                         <thead>
                                         <th>题目</th>
                                         <th>类别</th>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td  data-bind="papertitle"></td>
+                                            <td  data-bind="papertype"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="table table-bordered table-vertical-align">
+                                        <thead>
+
                                         <th>研究方向</th>
                                         <th>关键字</th>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td  data-bind="title"></td>
-                                            <td  data-bind="type"></td>
-                                            <td  data-bind="researchdirection">
-                                                <p data-bind="value"></p>
+                                        <tr data-bind="researchdirection">
+                                            <td>
+                                                <p data-bind="name"></p>
                                             </td>
                                             <td data-bind="keywords">
                                                 <span data-bind="value"></span>
