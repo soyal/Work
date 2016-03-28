@@ -1,0 +1,12 @@
+
+a {
+  color: #00B7FF;
+}
+.hero-unit{
+  background-color: #ccc;
+  padding:50px;
+  font-weight:bold;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}

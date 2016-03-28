@@ -38,7 +38,7 @@ $hometeam.focus(function(){
 $hometeam.blur(function(){
     setTimeout(function(){
         $movepanel.hide();
-    },100);
+    },200);
 
 });
 $movepanel.delegate("li","click",function(){
