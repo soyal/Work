@@ -70,7 +70,7 @@ console.log("老师");
     }
 
     //1.选择的研究类型为理论研究
-    if(data.paper.papertype == "理论研究"){
+    if(!data.paper||data.paper.papertype == "理论研究"){
         //检测是否有填写关键字
         if(keywordIds.length == 0&&$keywordsTable.find("tr").length>0){
             showWarning("请完善研究方向或关键字信息");
@@ -168,7 +168,7 @@ function hideInitInfo(){//隐藏信息加载的信息，展示内容面板
 }
 //研究方向及关键字初始化
 function initDirectAndKeywords(){
-    if($papertype.val() == "理论研究"){
+    if($papertype.val() == "理论研究"||$papertype.length == 0){
         showInitInfo();
         $.getJSON("../../WEB-INF/static/json/initinfo.json",function(data){
             //理论研究的dom渲染
@@ -377,7 +377,7 @@ function writeKeyword(id,value,target){
                 array[i].value = id;
             }
         });
-        //TODO exchange
+        exchangeInPanelAndInput(value,target);
     }else{//focus的input没有值
         var index = $tr.attr("data-index");
         keywordIds.push({
@@ -385,7 +385,7 @@ function writeKeyword(id,value,target){
             inputIndex : inputIndex,
             value : id
         });
-        renderPanelToInput(value,target);
+        renderPanelToInput(value);
     }
     target.val( value);
     target.attr("data-id",id);
@@ -478,16 +478,42 @@ function insertIntoMovePanel(data,direct2_id){
  * @param value 要给与的值
  * @param $input 目标
  */
-function renderPanelToInput(value,$input){
+function renderPanelToInput(value){
     var direct2_id = $movepanel.attr("data-direct2-id");
     var data = keywordsCache[direct2_id];
     if(!data) return;
+    deleteDataFromCache(value,data);
+    insertIntoMovePanel(data);
+}
+
+/**
+ * 删除缓存中的数据
+ * @param value
+ * @param direct2_id
+ */
+function deleteDataFromCache(value,data){
     //删除缓存中对应的数据
     data.forEach(function(e,i,array){
         if(e.name == value){
-            array.slice(i,1);
+            array.splice(i,1);
             return true;
         }
+    });
+}
+
+/**
+ * 交换input和movepanel上的信息
+ * @param value
+ * @param $target
+ */
+function exchangeInPanelAndInput(value,$target){
+    var direct2_id = $movepanel.attr("data-direct2-id");
+    var data = keywordsCache[direct2_id];
+    if(!data) return;
+    deleteDataFromCache(value,data);
+    data.push({
+        researchdirectionid : $target.attr("data-id"),
+        name : $target.val()
     });
     insertIntoMovePanel(data);
 }
