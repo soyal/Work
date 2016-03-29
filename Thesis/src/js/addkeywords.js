@@ -1,7 +1,6 @@
 /**
  * Created by Soyal on 2016/3/24.
  */
-
 var directSum = 0;
 var $alert = $("#J-alert");
 var $paperform = $("#J-form-paper");//论文修改的表单
@@ -15,16 +14,26 @@ var $keywordsAdd = $paperform.find("#J-keywords-add");//关键字添加按钮
 var $keywordsDel = $paperform.find("#J-keywords-delete");//关键字删除按钮
 var $initpage = $("#J-pageforinit");
 var $initinfo = $("#J-initinfo");
-var $onlyImport;                                         //不能自己输入，只能引入的input
 var $movepanel = $("#J-movepanel");                     //全局移动的信息面板
+var $theory = $("#J-theory");                           //理论研究的关键字操作
+var $hardsoft = $("#J-hardsoft");                         //软件和硬件操作对应的关键字操作
 var $direct1;
+var $onlyImport;                                         //不能自己输入，只能引入的input
 var $direct2;
 var $keywords;
+var paperkeys = [];                                   //用于软件和硬件研究方向的关键字添加
 var $curTarget = null;//当前的选择目标
 var $lastTarget = null;//上一个选择目标
-var isfocusKeyword = false;
+var focusType = 0;
+var FOCUS_TYPE = {
+    KEYWORDS : 1,  //关键字
+    DIRECTION : 2, //方向
+    TYPE : 3       //研究类型
+};
 var keywordIds = [];
 var trIndex = 0;
+var keywordsCache = [];         //关键字缓存[{direct2_id:1,data:{}}]
+
 function enableEdit(){
     $opItems.attr("disabled",false);
     $paperEdit.attr("disabled",true);
@@ -47,6 +56,7 @@ $paperSubmit.click(function(){
     var data = {};
     //检测是否有论文题目这一个input
     if($papertitle.length !== 0){//有,学生
+console.log("学生");
         if(!$papertitle.val() || !$papertype.val()){
             alert("请输入论文信息");
             return false;
@@ -56,23 +66,40 @@ $paperSubmit.click(function(){
             papertype : $papertype.val()
         }
     }else{  //没有，老师
-
-    }
-    //检测是否有填写关键字
-    if(keywordIds.length == 0&&$keywordsTable.find("tr").length>0){
-        alert("请完善研究方向或关键字信息");
-        return false;
+console.log("老师");
     }
 
+    //1.选择的研究类型为理论研究
+    if(data.paper.papertype == "理论研究"){
+        //检测是否有填写关键字
+        if(keywordIds.length == 0&&$keywordsTable.find("tr").length>0){
+            showWarning("请完善研究方向或关键字信息");
+            return false;
+        }
+
+        data.researchDirection = [];
+        keywordIds.forEach(function(e){
+            data.researchDirection.push({
+                researchdirectionid : e.value
+            })
+        });
+    //2.选择的研究类型为软件和硬件
+    } else{
+        var $paperkeys = $hardsoft.find(".paperkey");
+        $paperkeys.each(function(){
+            var value = $.trim($(this).val());
+            if(value){
+                paperkeys.push(value);
+            }
+        });
+        var paperkeysStr = paperkeys.join(",");
+        if(!paperkeysStr){
+            showWarning("请输入关键字");
+            return;
+        }
+        data.paper.paperkey = paperkeysStr;
+    }
     forbidEdit();
-
-
-    data.researchDirection = [];
-    keywordIds.forEach(function(e){
-        data.researchDirection.push({
-            researchdirectionid : e.value
-        })
-    });
 console.log(data);
     //TODO
 
@@ -87,18 +114,26 @@ console.log(data);
 });
 
 $alert.find(".close").click(function(){
-    $alert.slideUp();
+    hideWarning();
 });
 //添加关键字方向的面板操作
 $keywordsAdd.click(function(){
     //检测添加数量并提示
     if(directSum >= DIRECT_MAX){
-        $alert.slideDown();
-console.log("研究方向添加数量超过上限");
+        showWarning("研究方向已经达到添加上限");
         return;
     }
     addDomTr();
 });
+
+function showWarning(info){
+    $alert.find(".alert-content").html(info);
+    $alert.slideDown();
+}
+function hideWarning(){
+    $alert.slideUp();
+    $alert.find(".alert-content").html("");
+}
 
 //删除关键字操作
 $keywordsDel.click(function(){
@@ -133,17 +168,24 @@ function hideInitInfo(){//隐藏信息加载的信息，展示内容面板
 }
 //研究方向及关键字初始化
 function initDirectAndKeywords(){
-
-    showInitInfo();
-    $.getJSON("../../WEB-INF/static/json/initinfo.json",function(data){
-        data.forEach(function(e){
-        	if(e.isnull){
-        		hideInitInfo();
-        		return ;
-        	}
-            addDomTrAndFillData(e);
+    if($papertype.val() == "理论研究"){
+        showInitInfo();
+        $.getJSON("../../WEB-INF/static/json/initinfo.json",function(data){
+            //理论研究的dom渲染
+            data.forEach(function(e){
+                if(e.isnull){
+                    hideInitInfo();
+                    return ;
+                }
+                addDomTrAndFillData(e);
+            });
+            showTheory();
         });
-    });
+    //软件和硬件研究初始化渲染由服务器端负责
+    }else{
+        showHardsoft();
+        hideInitInfo();
+    }
 }
 
 function addDomTr(callback){
@@ -218,17 +260,7 @@ function bindEventForKeywords(){
 
     var isSwitch = false;//是否为各个input之间的切换
 
-    function insertIntoMovePanel(data){
-        $movepanel.html("");
-        var $fragment = $(document.createDocumentFragment());//文档碎片
-        for(var i= 0,len=data.length;i<len;i++){
-            var $li = $("<li class='list-group-item'></li>");
-            $li.attr("data-id",data[i].researchdirectionid);
-            $li.html(data[i].name);
-            $fragment.append($li);
-        }
-        $movepanel.append($fragment);
-    }
+
     //焦点到input上出现信息框
 
     $onlyImport.focus(function(e){
@@ -246,7 +278,7 @@ console.log("focus");
 
         //根据direct1|2,keyword进行不同功能的添加
         //第一级研究方向直接从远端获取
-        isfocusKeyword = false;
+        focusType = FOCUS_TYPE.DIRECTION;
         if($this.hasClass("J-direct1")){ //direct1
             //TODO
             $.getJSON("../../WEB-INF/static/json/test3.json",function(data){
@@ -255,31 +287,46 @@ console.log("focus");
             //第二级研究方向根据第一级研究方向获取
         }else if($this.hasClass("J-direct2")){
             var direct1 = $this.parents("td").find(".J-direct1").attr("data-id");
-    console.log("direct1",direct1);
             if(!direct1) {
                 clearMovePanel();
                 return;
             }
-            //TODO
             $.getJSON("../../WEB-INF/static/json/test3.json",{researchdirectionid : direct1},function(data){
                 insertIntoMovePanel(data);
             });
             //关键字根据第二级研究方向获取
         }else if($this.hasClass("J-keyword")){
-            isfocusKeyword = true;
+            focusType = FOCUS_TYPE.KEYWORDS;
             var direct2 = $this.parents("td").find(".J-direct2").attr("data-id");
-    console.log("direct1",direct2);
             if(!direct2) {
                 clearMovePanel();
                 return;
             }
-            //TODO
-            $.getJSON("../../WEB-INF/static/json/test3.json",{researchdirectionid : direct2},function(data){
-                insertIntoMovePanel(data);
-            });
+            //进行缓存
+            if(keywordsCache[direct2]){
+                //缓存中有
+console.log("line:318","缓存中有");
+                insertIntoMovePanel(keywordsCache[direct2]);
+            //缓存中没有
+            }else{
+console.log("line:322","从服务器端取");
+                $.getJSON("../../WEB-INF/static/json/test3.json",{researchdirectionid : direct2},function(data){
+                    keywordsCache[direct2] = data;
+                    insertIntoMovePanel(data,direct2);
+                });
+            }
+
         }else if($this.hasClass("J-papertype")){
+            focusType = FOCUS_TYPE.TYPE;
             insertIntoMovePanel([{
+                id : 0,
                 name : "理论研究"
+            },{
+                id : 1,
+                name : "硬件开发"
+            },{
+                id : 2,
+                name : "软件开发"
             }]);
         }
     });
@@ -301,10 +348,12 @@ $movepanel.delegate("li","click",function(e){
     var $this = $(this);
 console.log("click");
     //如果focus的是关键字的input
-    if(isfocusKeyword){
+    if(focusType == FOCUS_TYPE.KEYWORDS){
         writeKeyword($this.attr('data-id'),$this.html(),$curTarget);
-    }else{
+    }else if(focusType == FOCUS_TYPE.DIRECTION){
         writeDirection($this.attr('data-id'),$this.html(),$curTarget);
+    }else if(focusType == FOCUS_TYPE.TYPE){
+        writeResearchType($this.attr('data-id'),$this.html(),$curTarget);
     }
 
     //$curTarget.val( $this.html());
@@ -327,14 +376,16 @@ function writeKeyword(id,value,target){
             if(e.inputIndex == inputIndex){
                 array[i].value = id;
             }
-        })
-    }else{
+        });
+        //TODO exchange
+    }else{//focus的input没有值
         var index = $tr.attr("data-index");
         keywordIds.push({
             trIndex : index,
             inputIndex : inputIndex,
             value : id
         });
+        renderPanelToInput(value,target);
     }
     target.val( value);
     target.attr("data-id",id);
@@ -356,6 +407,25 @@ function writeDirection(id,value,$target){
 }
 
 /**
+ * 写研究类型
+ * @param id
+ * @param value
+ * @param $target
+ */
+function writeResearchType(id,value,$target){
+    //1.进行数据添加
+    $target.val( value);
+    $target.attr("data-id",id);
+    $movepanel.html("");//清空信息框的数据
+
+    //2.根据所选的研究方向不同，设置不同的关键字操作
+    if(value == "理论研究"){
+        showTheory();
+    }else {
+        showHardsoft();
+    }
+}
+/**
  * 删除数组中的undefined的值
  * @param array
  */
@@ -366,4 +436,58 @@ function filterUndefined(array){
         }
         return false;
     })
+}
+
+/**
+ * 显示理论研究关键字操作，隐藏软硬件关键字操作
+ */
+function showTheory(){
+    $theory.show();
+    $hardsoft.hide();
+}
+
+/**
+ * 显示软硬件关键字操作，隐藏理论研究关键字操作
+ */
+function showHardsoft(){
+    $theory.hide();
+    $hardsoft.show();
+}
+
+
+/**
+ * 将data信息插入movepanel
+ * @param data   一段json
+ * @param direct2_id
+ */
+function insertIntoMovePanel(data,direct2_id){
+    $movepanel.html("");
+    var $fragment = $(document.createDocumentFragment());//文档碎片
+    for(var i= 0,len=data.length;i<len;i++){
+        var $li = $("<li class='list-group-item'></li>");
+        $li.attr("data-id",data[i].researchdirectionid);
+        $li.html(data[i].name);
+        $fragment.append($li);
+    }
+    $movepanel.append($fragment);
+    $movepanel.attr("data-direct2-id",direct2_id);
+}
+
+/**
+ * 将panel中点击的li的值给予input(这个值会从panel中删除)
+ * @param value 要给与的值
+ * @param $input 目标
+ */
+function renderPanelToInput(value,$input){
+    var direct2_id = $movepanel.attr("data-direct2-id");
+    var data = keywordsCache[direct2_id];
+    if(!data) return;
+    //删除缓存中对应的数据
+    data.forEach(function(e,i,array){
+        if(e.name == value){
+            array.slice(i,1);
+            return true;
+        }
+    });
+    insertIntoMovePanel(data);
 }

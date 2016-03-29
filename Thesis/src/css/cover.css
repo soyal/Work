@@ -93,3 +93,11 @@ body{
 .direct-alert{
     display:none;
 }
+
+/*两个不同研究方向*/
+.theory{
+    display: none;
+}
+.hardsoft{
+    display: none;
+}
