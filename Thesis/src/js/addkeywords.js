@@ -2,7 +2,8 @@
  * Created by Soyal on 2016/3/24.
  */
 
-
+var directSum = 0;
+var $alert = $("#J-alert");
 var $paperform = $("#J-form-paper");//论文修改的表单
 var $opItems = $paperform.find(".operation-item");//论文信息的可操作项
 var $paperEdit = $paperform.find("#J-paper-edit");
@@ -85,8 +86,17 @@ console.log(data);
     })
 });
 
+$alert.find(".close").click(function(){
+    $alert.slideUp();
+});
 //添加关键字方向的面板操作
 $keywordsAdd.click(function(){
+    //检测添加数量并提示
+    if(directSum >= DIRECT_MAX){
+        $alert.slideDown();
+console.log("研究方向添加数量超过上限");
+        return;
+    }
     addDomTr();
 });
 
@@ -110,6 +120,7 @@ function deleteDirectAndKeywords($tr){
     });
     keywordIds = filterUndefined(keywordIds);
     $tr.remove();
+    directSum--;
 }
 
 function showInitInfo(){//展示信息加载的信息，隐藏内容面板
@@ -136,11 +147,7 @@ function initDirectAndKeywords(){
 }
 
 function addDomTr(callback){
-    //if($keywordsTable.find("tr").length>MAX_DIRECT-1){
-    //    alert("你的研究方向已经达到添加上限");
-    //    return;
-    //}
-    //获取模板并将模板内容添加到dom
+    directSum ++;
     var src = $("#table-tr").attr("src");
     var $tr;
     $.ajax(src,{

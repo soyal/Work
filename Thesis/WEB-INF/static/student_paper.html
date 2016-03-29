@@ -40,6 +40,13 @@
 
       <!--标签页 论文信息-->
       <div class="col-xs-10 padding-top">
+         <div class="alert alert-danger alert-dismissable direct-alert" id="J-alert">
+            <button type="button" class="close"
+                    aria-hidden="true">
+               &times;
+            </button>
+            <span class="alert-content">研究方向达到添加上限</span>
+         </div>
          <span id="J-initinfo" class="initinfo">信息获取中···</span>
          <div  id="J-pageforinit" class="initinfo">
             <form class="form-horizontal" role="form" action="updatepaper" id="J-form-paper" method="post">
@@ -95,7 +102,9 @@
 <ul class="list-group movepanel" id="J-movepanel">
 
 </ul>
-
+<script type="text/javascript">
+    var DIRECT_MAX = 2;
+</script>
 <script src="../../src/framework/js/jquery-2.2.2.min.js"></script>
 <script src="../../src/framework/js/bootstrap.min.js"></script>
 <script type="text/tpl-tr" id="table-tr" src="tpls/table-tr.tpl"></script>

@@ -89,3 +89,7 @@ body{
 .movepanel li:hover{
     background-color: #eee;
 }
+/*信息提示*/
+.direct-alert{
+    display:none;
+}
