@@ -49,6 +49,9 @@ body{
 .J-warning{
     display: none;
 }
+.font-size-18{
+    font-size:18px;
+}
 
 /*登陆页面*/
 .login-h1{
