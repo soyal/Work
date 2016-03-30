@@ -110,28 +110,36 @@
                   <div class="form-group">
                      <label for="usercode" class="col-xs-2 control-label col-xs-offset-1">学号</label>
                      <div class="col-xs-6">
-                        <input type="text" class="form-control info-item" id="usercode" name="usercode" value="2012111111" disabled/>
+                        <input type="number" class="form-control info-item" id="usercode" name="usercode" value="2012111111" disabled/>
                      </div>
                   </div>
 
                   <div class="form-group">
-                     <label for="sex" class="col-xs-2 control-label col-xs-offset-1">性别</label>
+                     <label class="col-xs-2 control-label col-xs-offset-1">性别</label>
                      <div class="col-xs-6">
-                        <input type="text" class="form-control info-item" id="sex" name="sex" value="男" disabled/>
+                        <!--<input type="text" class="form-control info-item" id="sex" name="sex" value="男" disabled/>-->
+                        <label class="checkbox-inline">
+                           <input type="radio" name="sex" class="info-item" disabled
+                                  value="男" checked> 男
+                        </label>
+                        <label class="checkbox-inline">
+                           <input type="radio" name="sex" class="info-item" disabled
+                                  value="女"> 女
+                        </label>
                      </div>
                   </div>
 
                   <div class="form-group">
                      <label for="phone" class="col-xs-2 control-label col-xs-offset-1">电话</label>
                      <div class="col-xs-6">
-                        <input type="text" class="form-control info-item" id="phone" name="phone" value="1888000000" disabled/>
+                        <input type="number" class="form-control info-item" id="phone" name="phone" value="1888000000" disabled/>
                      </div>
                   </div>
 
                   <div class="form-group">
                      <label for="email" class="col-xs-2 control-label col-xs-offset-1">邮箱</label>
                      <div class="col-xs-6">
-                        <input type="text" class="form-control info-item" id="email" name="email" value="男" disabled/>
+                        <input type="email" class="form-control info-item" id="email" name="email" disabled/>
                      </div>
                   </div>
 

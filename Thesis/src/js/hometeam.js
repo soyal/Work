@@ -39,7 +39,6 @@ $hometeam.blur(function(){
     setTimeout(function(){
         $movepanel.hide();
     },200);
-
 });
 $movepanel.delegate("li","click",function(){
     var $this = $(this);
@@ -58,5 +57,9 @@ function clearMovePanel(){
 
 //向form里面插入 hidden的input
 function insertHidden(id){
-    $hometeamForm.prepend("<input type='hidden' name='researchTeamId' id='J-researchTeamId' value='"+id+"'>");
+    if($("#J-researchTeamId").length == 0){
+        $hometeamForm.prepend("<input type='hidden' name='researchTeamId' id='J-researchTeamId' value='"+id+"'>");
+    }else{
+        $("#J-researchTeamId").attr("value",id);
+    }
 }
