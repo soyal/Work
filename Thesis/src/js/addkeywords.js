@@ -70,7 +70,7 @@ console.log("老师");
     }
 
     //1.选择的研究类型为理论研究
-    if(!data.paper||data.paper.papertype == "理论研究"){
+    if(!data.paper||data.paper.papertype == "应用基础研究"){
         //检测是否有填写关键字
         if(keywordIds.length == 0&&$keywordsTable.find("tr").length>0){
             showWarning("请完善研究方向或关键字信息");
@@ -168,7 +168,7 @@ function hideInitInfo(){//隐藏信息加载的信息，展示内容面板
 }
 //研究方向及关键字初始化
 function initDirectAndKeywords(){
-    if($papertype.val() == "理论研究"||$papertype.length == 0){
+    if($papertype.val() == "应用基础研究"||$papertype.length == 0){
         showInitInfo();
         $.getJSON("../../WEB-INF/static/json/initinfo.json",function(data){
             //理论研究的dom渲染
@@ -320,13 +320,16 @@ console.log("line:322","从服务器端取");
             focusType = FOCUS_TYPE.TYPE;
             insertIntoMovePanel([{
                 id : 0,
-                name : "理论研究"
+                name : "应用基础研究"
             },{
                 id : 1,
-                name : "硬件开发"
+                name : "技术开发（软件）"
             },{
                 id : 2,
-                name : "软件开发"
+                name : "技术开发（硬件）"
+            },{
+                id : 3,
+                name : "系统（工程）设计"
             }]);
         }
     });
@@ -419,7 +422,7 @@ function writeResearchType(id,value,$target){
     $movepanel.html("");//清空信息框的数据
 
     //2.根据所选的研究方向不同，设置不同的关键字操作
-    if(value == "理论研究"){
+    if(value == "应用基础研究"){
         showTheory();
     }else {
         showHardsoft();
