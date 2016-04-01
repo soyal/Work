@@ -65,6 +65,9 @@ body{
     padding-bottom: 20px;
     border: 2px solid rgb(51,122,183);
 }
+.passwordalert{
+    display: none;
+}
 
 /*个人信息-密码修改*/
 .update-password-form{
