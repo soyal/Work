@@ -52,7 +52,22 @@ body{
 .font-size-18{
     font-size:18px;
 }
-
+.info{
+    margin-top: 100px;
+}
+.selfinfo-content{
+    min-height: 400px;
+}
+.block{
+    display: block;
+}
+img.block{
+    width: 600px;
+    height: auto;
+}
+h4.margin-top-10{
+    margin-top: 10px;
+}
 /*登陆页面*/
 .login-h1{
     margin-bottom: 50px;

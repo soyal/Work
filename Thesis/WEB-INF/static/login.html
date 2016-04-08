@@ -10,56 +10,66 @@
     <!--[endif]-->
 </head>
 <body>
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="alert alert-danger text-center J-warning" id="J-warning">
-                <p>您目前使用的浏览器版本过低，不能正常使用本网站，请使用最新的IE浏览器或者是chrome浏览器</p>
-            </div>
-        </div>
-        <div class="col-xs-12">
-            <div class="alert alert-info text-center font-size-18">
-                <p><strong>信息截止录入时间为：2016年4月10日</strong></p>
-            </div>
-        </div>
-    </div>
+
     <div class="container">
-
-        <div class="login-container col-xs-8 col-xs-offset-2">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h1 class="login-h1 text-center">论文送审系统</h1>
-                </div>
-            </div>
-            <form class="form-horizontal" role="form" id="J-login" action="student_selfinfo.html" method="post">
-                <div class="form-group">
-                    <label for="username" class="col-xs-2 control-label col-xs-offset-1">用户名</label>
-                    <div class="col-xs-6">
-                        <input type="text" class="form-control" id="username" name="username"
-                               placeholder="用户名">
+        <div class="row">
+            <div class="login-container col-xs-8 col-xs-offset-2">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h1 class="login-h1 text-center">论文送审系统</h1>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label for="password" class="col-xs-2 control-label col-xs-offset-1">密码</label>
-                    <div class="col-xs-6">
-                        <input type="password" class="form-control" id="password" name="password" placeholder="密码"/>
-                    </div>
-                </div>
-                <div class="row passwordalert"  id="J-passwordalert">
-                    <div class="col-xs-6 col-xs-offset-3">
-                        <div class="alert alert-warning text-center font-size-18">
-                            <p>账号不存在或者密码错误</p>
+                <form class="form-horizontal" role="form" id="J-login" action="student_selfinfo.html" method="post">
+                    <div class="form-group">
+                        <label for="username" class="col-xs-2 control-label col-xs-offset-1">用户名</label>
+                        <div class="col-xs-6">
+                            <input type="text" class="form-control" id="username" name="username"
+                                   placeholder="用户名">
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-xs-6 col-xs-offset-3">
-                        <button type="button" id="J-submit" class="btn btn-primary btn-full login-btn">登陆</button>
+
+                    <div class="form-group">
+                        <label for="password" class="col-xs-2 control-label col-xs-offset-1">密码</label>
+                        <div class="col-xs-6">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="密码"/>
+                        </div>
                     </div>
-                </div>
-            </form>
+                    <div class="row passwordalert"  id="J-passwordalert">
+                        <div class="col-xs-6 col-xs-offset-3">
+                            <div class="alert alert-warning text-center font-size-18">
+                                <p>账号不存在或者密码错误</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-6 col-xs-offset-3">
+                            <button type="button" id="J-submit" class="btn btn-primary btn-full login-btn">登陆</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
+        <div class="row info">
+            <div class="col-xs-12">
+                <div class="alert alert-info">
+                    <h2 class="text-center">系统关闭时间：2016年4月15日17:30</h2>
+                    <p class="text-center">请各位研究生同学和教师务必于系统关闭之前正确录入信息</p>
+                    <p class="text-center"><a href="#">使用手册下载</a></p>
+                    <p class="text-center">（学生登录账号为学号，初始密码为八位生日，请登录后务必修改密码）</p>
+                    <p class="text-center">CopyRight @ 2016 通信与信息工程学院 研究生工作办公室</p>
+                    <p class="text-center">联系电话 023-62460782</p>
+                    <br/>
+                    <br/>
+                    <p class="text-center">为确保您的正常使用，强烈建议使用Chrome或者Firefox浏览器，否则可能存在不兼容的现象</p>
+                    <p class="text-center">由于可能存在的网络问题，如遇不正常显示等，请检查网络ping情况并重试</p>
+                    <br/>
+                    <p class="text-center">技术支持：Bug反馈邮箱 gsscie@qq.com</p>
+                </div>
+            </div>
+        </div>
+
     </div>
+
     <script src="../../src/framework/js/jquery-2.2.2.min.js"></script>
     <script src="../../src/js/browserwarning.js"></script>
     <script src="../../src/js/passwordalert.js"></script>
