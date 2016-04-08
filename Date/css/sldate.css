@@ -1,0 +1,72 @@
+div,h3,h4,th,td,table,tr,thead,tbody{
+    margin:0;
+    padding:0;
+}
+
+.sldate{
+    position: absolute;
+    border-color: #85BEE5 #3485C0 #3485C0 #85BEE5;
+    border-width:1px;
+    border-style: solid;
+    padding:5px 30px 15px 30px;
+    font-size:12px;
+    text-align: center;
+}
+.sldate-head{
+    font-size:12px;
+    font-weight:bold;
+    padding-bottom: 5px;
+    border-bottom:1px solid #ccc;
+}
+.sldate-nav-prev,.sldate-nav-next{
+    position: absolute;
+    top:50%;
+    margin-top:-19px;
+    height:38px;
+    font-size:0;
+    width:20px;
+    cursor: pointer;
+}
+.sldate-nav-prev{
+    left : 0;
+    background: url(../img/sldate_sprite.png) no-repeat 0 -38px;
+}
+.sldate-nav-prev:hover{
+    background: url(../img/sldate_sprite.png) no-repeat 0 0;
+}
+.sldate-nav-next{
+    right: 0;
+    background: url(../img/sldate_sprite.png) no-repeat -20px -38px;
+}
+.sldate-nav-next:hover{
+    background: url(../img/sldate_sprite.png) no-repeat -20px 0;
+}
+.sldate-content table{
+    border-collapse: collapse;
+}
+.sldate-content table th{
+    font-weight:400;
+    height:22px;
+    width:24px;
+    border-bottom : 1px solid #ccc;
+}
+.sldate-content table td{
+    font-weight:700;
+    height:22px;
+    border-left : 1px solid #ccc;
+    border-right : 1px solid #ccc;
+    border-bottom : 1px solid #ccc;
+    word-spacing: 0;
+    letter-spacing: 0;
+}
+.sldate-content-date{
+    display: block;
+    width:100%;
+    height:100%;
+    line-height:22px;
+    cursor: pointer;
+}
+.sldate-content-date:hover{
+    background-color: rgb(87,146,220);
+    color: #ffffff;
+}
