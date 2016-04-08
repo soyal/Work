@@ -11,13 +11,17 @@
         this.main = document.querySelector(selector)||document.querySelector(".sldate");
         this.headYear = null;
         this.headMonth = null;
-        this.table = null;
+        this.tbody = null;
+        this.monthDays = null;
 
         var date = new Date();
         this.__init(date.getFullYear(),date.getMonth()+1);
     };
 
     Sldate.prototype.__init = function(year,month){
+        //*************初始化数据
+        this.monthDays = [31,28+this.isLeap(year),31,30,31,30,31,31,30,31,30,31];
+
         //*************初始化dom结构************
         //1.sldate-head
         var sldateHead = this.__initHead();
@@ -101,19 +105,22 @@
 
         //添加thead
         var thead = document.createElement("thead");
-        var ths = ["日","一","二","三","四","五","六"];
         var theadTr = document.createElement("tr");
+        thead.appendChild(theadTr);
+        var ths = ["日","一","二","三","四","五","六"];
         ths.forEach(function(e){
             var th = document.createElement("th");
             th.innerHTML = e;
             theadTr.appendChild(th);
         });
-        table.appendChild(theadTr);
+        table.appendChild(thead);
 
         //添加tbody
         //TODO 构造合适的数据结构用于存储日期
+        var tbody = document.createElement("tbody");
+        table.appendChild(tbody);
 
-        this.table = table;
+        this.tbody = tbody;
         return content;
     };
 
@@ -126,6 +133,35 @@
         this.headYear.innerHTML = year;
         this.headMonth.innerHTML = month;
     };
+
+
+    /**
+     * 根据提供的年月生成合适的数据结构用于构筑dom
+     * @param year  四位数
+     * @param month 1-12
+     * @private
+     */
+    Sldate.prototype.__generateData = function(year,month){
+        var first = new Date(year,month,1);
+        var dayOfWeek = first.getDay();//0-6 周日为0
+        var daysOfMonth = this.monthDays[month]; //这个月的总天数
+        var line = Math.ceil((parseInt(daysOfMonth) + parseInt(dayOfWeek))/7);
+        return {
+            dayOfWeek : dayOfWeek,
+            totalDays : daysOfMonth,
+            totalLines : line
+        };
+    };
+
+    /**
+     * 判断是否为闰年，是，返回1，不是，返回0
+     * @param year
+     * @returns {number}
+     */
+    Sldate.prototype.isLeap = function(year){
+        return  (year%100 === 0)?(year%400 === 0?1:0):(year%4===0?1:0);
+    };
+
 
 
     exports.Sldate = Sldate;
